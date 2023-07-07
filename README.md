@@ -1,2 +1,2 @@
 # coding-prac
-Repository of coding challenges and questions for technical interview practice.
+This is a repository for coding challenges. These challenges are used to prepare for technical interviews.
