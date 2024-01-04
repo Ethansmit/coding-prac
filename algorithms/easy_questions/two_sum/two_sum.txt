@@ -1,0 +1,59 @@
+Name: Two Sum
+Type: Algorithms and Data Structures
+Difficulty: Easy
+From: Leetcode
+
+Description:
+    Given an array of integers "nums", and an integer "target", reutn the indices of the two numbers
+    such that their sum adds up to the target.
+
+Assumptions:
+    - Assume exactly one solution from nums.
+    - Can't use same element twice.
+    - Answer can be returned in any order.
+    - nums.length >= 2.
+    - All values are integers.
+
+Example:
+    Input: nums = [5,6,12,9,13], target = 14
+    Output: [0,3]
+
+    Input: nums = [1,1], target = 2
+    OUtput: [0,1]
+
+
+Solution Explanation:
+    Brute-Force, O(n^2):
+        The naive solution is to perform a nested loop through nums, outer loop "i" will move through the array
+        while inner loop "j" will go through from i + 1 to the end of the array.
+        
+        Algorithm pseudocode:
+            1. Outerloop, starting from i = 0, to i = nums.length - 1 (can't use same element)
+            2. Innerloop, starting from j = i + 1, to j = nums.length.
+            3. If nums[i] + nums[j] = target, return [i,j], else keep matching.
+
+    Using Complements, O(n):
+        We can utilize the complement of each nums[i] value in order to find a potential solution to target.
+        This involves go through each element, calculating the complement of the element with the target, and
+        checking if a previous value in the nums from position i is equal to the complement.
+
+        Algorithm pseudocode:
+            1. Create hash table to store previous elements, where the key is the element and the object is the index.
+            2. Create a for loop on all elements of the table.
+            3. Calculate complement = target - nums[i].
+            4. Check if complement exists in hash table.
+                - If so, return hash table index and current index.
+                - Else, add current element and index to the table.
+        
+        Proof of Correctness:
+        Say that there exists a solution (x,y).
+        We know that when calculating the complement of nums[x], then there exists
+        a nums[y] in nums which satisfies the condition nums[x] + nums[y] = target.
+        We first observe that if we are curretnly looking at index x in nums, then either y < x, in which
+        nums[y] will be stored in the hash table, and will return (x,y) as the desired result, or y > x, in which
+        nums[x] will be placed in the hash table, and at index y, the complement will return nums[x] from table.
+
+        If no solution exists to target, then there will not be a situation where nums[x] will appear as a complement for
+        any given value in nums.
+
+        Hence, with no loss in generality, we have proven correctness.
