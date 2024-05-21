@@ -23,7 +23,7 @@ Example:
 
 
 Solution Explanation:
-    Brute-Force, O(n^2):
+    Brute-Force, O(N^2):
         The naive solution is to perform a nested loop through nums, outer loop "i" will move through the array
         while inner loop "j" will go through from i + 1 to the end of the array.
         
@@ -32,7 +32,7 @@ Solution Explanation:
             2. Innerloop, starting from j = i + 1, to j = nums.length.
             3. If nums[i] + nums[j] = target, return [i,j], else keep matching.
 
-    Using Complements, O(n):
+    Using Complements, O(N):
         We can utilize the complement of each nums[i] value in order to find a potential solution to target.
         This involves go through each element, calculating the complement of the element with the target, and
         checking if a previous value in the nums from position i is equal to the complement.

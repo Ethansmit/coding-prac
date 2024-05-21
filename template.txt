@@ -1,0 +1,31 @@
+Name: 
+Type: 
+Difficulty: 
+From: 
+
+Description:
+    Explanation
+
+Assumptions:
+    - 1
+
+Example:
+    Input: 
+    Output: 
+
+    Input: 
+    OUtput: 
+
+
+Solution Explanation:
+    Solution, O(n):
+        Explanation
+
+        Algorithm Pseudocode:
+            1. Steps here
+
+        Proof of Correctness:
+            Explanation
+
+        Proof of Runtime:
+            Explanation

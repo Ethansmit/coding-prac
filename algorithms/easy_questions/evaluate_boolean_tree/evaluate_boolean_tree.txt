@@ -1,0 +1,59 @@
+Name: Evaluate Boolean Binary Tree
+Type: Algorithms and Data Structures
+Difficulty: Easy
+From: Leetcode
+
+Description:
+    Given a root, which represents a full binary tree, the goal is to evaluate the whole tree with the following properties:
+        - Leaf nodes have values 0 or 1, reprsenting False and True respectively.
+        - Non-leaf nodes have values 2 or 3, representing the boolean operations OR and AND respectively.
+    
+    Evaluation is as follows:
+        - If the node is a leaf node, evaluate as True or False depending on its value.
+        - If the node is a non-leaf node, evaluate its children and return the result of the boolean operation on its leaf nodes.
+
+Assumptions:
+    - All inputs will contain atleast one node.
+    - There will always be atleast one leaf node (one node with either 0 or 1).
+    - The range for the values of the node will always be {0,1,2,3}.
+    - Every Node in the graph will either have 0 children (leaf) or 2 children (non-leaf).
+    - Leaf nodes will either have a value of 0 or 1, non-leaf nodes will have a value of 2 or 3.
+
+Example:
+    Input: [1]
+    Output: True
+
+    Input: [3,2,2,0,1,0,0]
+    OUtput: False
+
+
+Solution Explanation:
+    Solution, O(N):
+        In order to evaluate our binary tree, we will utilize a depth-first-search approach, in which we will traverse from the root to the leaves, and climb back up, evaluating
+        the nodes boolean opeartions according to their leaves. We can implement this function recurisvely by calling our solution function on the children if our given node
+        is an OR or an AND node.
+
+        Algorithm Pseudocode:
+            1. Call traverse function on root node.
+            2. Check the root node value, four scenarios.
+                a. If root.val = 0, return False.
+                b. If root.val = 1, return True.
+                c. If root.val = 2, return the result of ORing the traverse of the children of root.
+                d. If root.val = 3, return the result of ANDing the traverse of hte children of root.
+            3. return the result of call traverse on root.
+
+        Proof of Correctness:
+            We note that the base case of our function has two situations, a single node, which will simply return the boolean value of that given node.
+
+            The other case is if we have an AND or OR node, in which case it will need to analyze the value of the children given
+            our base case, then return a boolean value represenative of the boolean operation on the children.
+
+            Hence, we can create an inductive hypothesis which state that given any set of nodes, we can divide it into subproblems represenative of the two cases above.
+
+            Our inductive step will simply demonstrate this fact, as adding any other AND or OR nodes and its children will be resolved by our base cases, and will satisfy the 
+            indutctive hypothesis. Hence, we have proven correctness. 
+
+        Proof of Runtime:
+            We see that each node is visited once by the traverse function, then returns a value that is called back by a recurisve call to the function.
+            Because evaluating a node for being true or false is constant time, this means that our total runtime will be "c" calls on N nodes,
+            Hence, our runtime is O(N).
