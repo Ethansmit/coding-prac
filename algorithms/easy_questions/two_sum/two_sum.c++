@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <vector>
 
-class Solution {
+class two_sum {
 public:
     static std::vector<int> bruteForce(const std::vector<int> &nums, int target) {
         // length of nums
@@ -42,8 +42,8 @@ int main() {
     std::vector<int> test2 = {1,2,3,4,5};
     int target2 = 7;
 
-    std::vector<int> result1 = Solution::complements(test1, target1);
-    std::vector<int> result2 = Solution::complements(test2, target2);
+    std::vector<int> result1 = two_sum::complements(test1, target1);
+    std::vector<int> result2 = two_sum::complements(test2, target2);
 
     for (int value : result1) {
         std::cout << value << " ";
