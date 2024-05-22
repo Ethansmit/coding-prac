@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class solution {
+public class two_sum {
     public static int[] brutFroce(int[] nums, int target) {
         // length of nums
         int length = nums.length;
