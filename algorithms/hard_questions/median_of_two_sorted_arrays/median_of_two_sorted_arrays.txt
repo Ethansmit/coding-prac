@@ -1,31 +1,87 @@
-Name: 
-Type: 
-Difficulty: 
-From: 
+Name: Median of Two Sorted Arrays
+Type: Algorithm
+Difficulty: Hard
+From: LeetCode
 
 Description:
-    Explanation
+    Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
 
 Assumptions:
-    - 1
+    - both m and n can be equal to 0.
+    - m + n must be at least 1.
 
 Example:
-    Input: 
-    Output: 
+    Input: nums1 = [2,3,5,7,9], nums2 = [2,5,5,8,10]
+    Output: 5
 
-    Input: 
-    OUtput: 
+    Input: nums1 = [1,2], nums2 =[3,4]
+    Output: 2.5 
 
 
 Solution Explanation:
-    Solution, O(n):
-        Explanation
+    Merge Sort, O(m + n):
+        An intuitive approach is to combine the two arrays then simply locate the middle element and return it as the median.
+        Because the given arrays are already sorted, we just simply need to merge the two arrays together. We can do this through a pointer
+        based method, comparing each element of the two arrays and creating a new array with the rearranged elements.
 
         Algorithm Pseudocode:
-            1. Steps here
+            1. Create two pointers for the beginning of nums1 and nums2.
+            2. Place the elements of nums1 and nums2 into merge_array in this fashion
+                - If ptr_nums1 >= ptr_nums2, then place ptr_nums2 into the current index of merge_array
+                - If ptr_nums2 > ptr_nums2, then place ptr_nums1 into the current index of merge_array.
+                - Each time a new element is placed, check that we are not going over half the size of the original arrays.
+            3. Obtain median through following calculations:
+                - If m + n is odd, then simply obtain the middle element.
+                - If m + n is even, then obtain the two middle elements, and return their average.
 
         Proof of Correctness:
-            Explanation
+            By definition of a median, this approach obtains the median by itterating through the lists as if they were combined into one.
+            Hence, the result is correct.
 
         Proof of Runtime:
-            Explanation
+            Because this method requires itterating through both lists, we see that the runtime is O(m + n).
+    
+    Binary Search, O(log(min(m,n))):
+        We note that by utilizing Binary search to obtain the kth smallest element, we can use this to eliminate halves of the given arrays to minimize
+        the search area (further explanation in Proof of Correctness). We can improve this algorithm by focusing on partitioning the smaller array.
+        We note that we can obtain two lesser halves of our given arrays by enforcing that they both be of size (m + n + 1) / 2. We can then analyze
+        the edge elements of the smaller halves to their larger halves, obtaining four points, and we can establish set conditions, altering the edge points 
+        to ensure that we obtain the median of both arrays.
+
+        Algorithm Pseudocode:
+            1. Establish the "left" array as the smaller of the two arrays.
+            2. Let left = 0 and right = m (size of smaller array).
+            3. While left <= right, do the following steps.
+                4. create partition of A as (left + right) / 2.
+                5. create partition of B as (m + n + 1) / 2 - partition of A.
+                6. Obtain the edge elements. Here are their definitions.
+                    - max_left_A = nums1[partitionA - 1]
+                    - min_right_A = nums1[partitionA]
+                    - max_left_B = nums2[partitionB - 1]
+                    - min_right_B = nums2[partitionB]
+                7. Compare edge elements and done one of the following:
+                    - If max_left_A > min_right_B, shift partition of A to the left one.
+                    - If max_left_B > min_right_A, we are to far left and need to shift partition A to the right one.
+                    - Otherwise we are at the correct spot and need to do either:
+                        a. If (m + n) % 2 = 0, then average the max value of the smaller half and the miniumum value of the larger half.
+                        b. Else just return the maximum value of the smaller halves.
+                8. Repeat 4-7 until partitions are in the correct spot.
+
+        Proof of Correctness:
+            Let nums1 be called array A and nums2 be called array B.
+            We can utilize the kth element algorithm to obtain the kth element of (A + B), by setting k = (m + n + 1) / 2, we can obtain
+            elements that allow us to eliminate portions of the two arrays by half. (depending on if the sizes are even). We first note that
+            by obtaining k, we can eliminate the smaller half of A, designated as x, then remove a similar number of elements of B by 
+            setting k = k - x and remove a similar number of elements from B. This eliminates half of (A + B), and the algorithm can be applied
+            until we have one or two elements left.
+
+            The algorithm above performs the above logic but only searching on the smaller of either A or B. We note that our median will be found
+            in a partition created by pivoting at point k = (m + n + 1) / 2. By structuring our pivot point such that we can divide A and B into
+            two parts, and the smaller half of both A and B add up to k. We then can note that our median has to be an element between the 
+            smaller and large partitions of A and B. The k value is the index of our median, and because we are partitioning A and B in such a way
+            that they each form two sorted partitions that the left partitions of A and B add up to k, we result in obtaining the median of the two
+            arrays. Hence, the algorithm, by the correcntess of the kth smallest algorithm and binary search, is correct.
+
+        Proof of Runtime:
+            Because partitioning (binary search method) is used on the smaller array, we note that obtaining the pivot point (median) is accomplished
+            in O(log(min(m,n))).

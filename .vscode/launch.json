@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "median_of_two_sorted_arrays",
+      "request": "launch",
+      "mainClass": "algorithms.hard_questions.median_of_two_sorted_arrays.median_of_two_sorted_arrays",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
