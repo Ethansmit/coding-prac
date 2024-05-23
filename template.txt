@@ -14,7 +14,7 @@ Example:
     Output: 
 
     Input: 
-    OUtput: 
+    Output: 
 
 
 Solution Explanation:

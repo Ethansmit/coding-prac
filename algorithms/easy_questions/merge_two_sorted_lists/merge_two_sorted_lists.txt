@@ -1,31 +1,47 @@
-Name: 
-Type: 
-Difficulty: 
-From: 
+Name: Merge Two Sorted Lists
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
 
 Description:
-    Explanation
+    Given two sorted linked lists of numbers, merge the two lists into one sorted linked list.
 
 Assumptions:
-    - 1
+    - The lists can be empty.
+    - Both lists are sorted in ascending order.
 
 Example:
-    Input: 
-    Output: 
+    Input: list1 = [1,5,9], list2 = [1,4,5,11]
+    Output: [1,1,4,5,5,9,11]
 
-    Input: 
-    OUtput: 
+    Input: list1 = [1,4,6], list2 = []
+    Output: [1,4,6]
 
 
 Solution Explanation:
-    Solution, O(n):
-        Explanation
+    Solution, O(n + m):
+        We can solve this problem through utilizing itterators between the two lists, which move through the list and place
+        the nodes into the correct position of the combined sorted list. The idea of the algorithm is described below.
 
         Algorithm Pseudocode:
-            1. Steps here
+            1. Set the head of the new combined list.
+                - If list1's first node is greater than list2's first node, then list2 is the head.
+                - If list2's first node is greater than or equal to list1's first node, the list1 is the head.
+            2. Create temp value that stores current node in combined linked list.
+            3. Loop through the linked list performing the following checks until one list runs out.
+                - If list1's current node is greater than list2's current node, then list2's current node becomes the temp node.
+                - If list2's current node is greater than or equal too list1's current node, then list1's current node becomes the temp node.
+            4. If there is any nodes left in list1 or list2, populate them at the end of the new list.
 
         Proof of Correctness:
-            Explanation
+            At any given time in the algorithm we have a node selected from both list1 and list2. We have two scenarios that can occur.
+                - Case 1: list1's node is bigger than list2, in which list2 is added into the new list.
+                - Case 2: list2's node is greater than or equal to list1, in which case list1's node is added to the list.
+            We see that in either cases, we notice that the smaller value is being added to the list proper, hence the algorithm follows the reuqirement
+            of building a sorted list, resulting in a correct result.
 
         Proof of Runtime:
-            Explanation
+            Assuming that list1 is of size n and list2 is of size m, the algorithm above will itterate through
+            both lists, visiting each node in each list once, then placing them in the proper position.
+
+            Because checking for the values of the nodes is a constant time operation, we can assume that the Runtime will then be O(n + m).
