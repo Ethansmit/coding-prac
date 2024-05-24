@@ -15,8 +15,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/easy_questions/two_sum",
-      "program": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/easy_questions/two_sum/build/Debug/outDebug",
+      "cwd": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/easy_questions/merge_sorted_arrays",
+      "program": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/easy_questions/merge_sorted_arrays/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "C:/Program Files/mingw64/bin/gdb.exe",
       "setupCommands": [

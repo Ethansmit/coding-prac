@@ -1,0 +1,47 @@
+Name: Merge Sorted Arrays
+Type: Algorithms
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Given two integer arrays, nums1 and nums2, sorted in non-decreasing order, and two integers, m and n,
+    representing the number of elements in nums1 and nums2 repsectively, merge nums1 and nums2 into one sorted array.
+
+Assumptions:
+    - nums1.length == m + n
+    - m and n can both be 0.
+    - The merge result must be stored in nums1.
+    - If nums2 contains elements, then nums1 must have length of atleast n.
+
+Example:
+    Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+    Output: [1,2,2,3,5,6]
+
+    Input: nums1 = [0,0,0], m = 0, nums2 = [1,5,9], n = 3
+    Output: [1,5,9]
+
+
+Solution Explanation:
+    Pointers, O(n + m):
+        To solve this problem, we can utilize pointers which start at the end of each array, which then itterate
+        backwards, placing the elements starting at the end of nums1 and going backwards. Note that this algorithm just
+        simply compares the pointed values of nums1 and nums2 and sorts in non-decreasing order.
+
+        Algorithm Pseudocode:
+            1. Check if nums1 or nums2 is empty.
+                - If nums2 is empty, return nums1.
+                - If nums1 is empty, set nums1 equal to nums2 and return nums1.
+            2. Create two pointers at the end of nums1 values and nums2 values.
+            3. While the pointers don't equal -1, do the following starting at the end of nums1 and going backwards
+                - If nums1's value is greater than or equal to nums2, place nums1 value in the correct spot and decrease nums1 pointer.
+                - If nums2's value is greater than nums1, place nums2 value in the correct spot and decrease nums2 pointer.
+            4. If either nums1's pointer or nums2's pointer is not equal to -1, then place the rest of the elements in their
+               correct position.
+            5. Return nums1.
+
+        Proof of Correctness:
+            We gurantee correctness through step 3's actions, as we witness there only being two situations, in either case, we note that 
+            values are being correctly placed into nums1. Hence the algorithm is correct.
+
+        Proof of Runtime:
+            The algorithm looks at all the elements of nums1 and nums2 once, hence the algorithm runs in O(n + m) time.

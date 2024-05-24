@@ -3,7 +3,6 @@
     {
       "name": "windows-gcc-x64",
       "includePath": [
-        "${workspaceFolder}/**",
         "C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++",
         "C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/x86_64-w64-mingw32",
         "C:/Program Files/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/backward",
