@@ -1,5 +1,5 @@
 Name: Two Sum
-Type: Algorithms and Data Structures
+Type: Algorithms
 Difficulty: Easy
 From: Leetcode
 

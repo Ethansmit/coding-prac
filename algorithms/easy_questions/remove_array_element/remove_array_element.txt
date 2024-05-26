@@ -1,0 +1,41 @@
+Name: Remove Array Element
+Type: Algorithms
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Given an array, nums, and an integer, val, remove all occurences of val in nums. Return an integer which indicates the number of elements
+    left in the array.
+
+Assumptions:
+    - The final order of the array does not matter.
+    - The return value indicates the number of elements left in the array after deletion.
+    - nums can be empty.
+
+Example:
+    Input: nums = [5,4,3,2,5,3,5,2], val = 5
+    Output: 5
+
+    Input: nums = [3,2,2,3], val = 3
+    Output: 2
+
+
+Solution Explanation:
+    Itterative Pass, O(N):
+        The final solution is simply just an itteration of the array which will sweep through and delete the necessary elements in on sweep. The algorithm is
+        described below.
+
+        Algorithm Pseudocode:
+            1. Create index which counts the number of elements left in the array after deletion.
+            2. Loop through all elements of nums doing the following.
+                - Check if nums[i] is equal to the given val. If so move to the next element.
+                - If nums[i] is not equal to val, then set nums[index] = nums[i] and itterate index.
+            3. return index.
+
+        Proof of Correctness:
+            This algorithm accomplishes a loop which will shift all the elements back. The return value of index indicates the size of the new array, and because
+            everytime we see a value which isn't val, we move it back by the number of elements deleted that were equal to val. Because of this back shifting,
+            index will correctly reflect the number of new elements left in the array after deletion. Hence being correct.
+
+        Proof of Runtime:
+            Because this algorithm sweeps through the nums once, it check each element once, hence the algorithm has a runtime of O(N).
