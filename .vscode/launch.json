@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "remove_dup_2",
+      "request": "launch",
+      "mainClass": "algorithms.medium_questions.remove_duplicates_sorted_array_2.remove_dup_2",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
+      "type": "java",
       "name": "median_of_two_sorted_arrays",
       "request": "launch",
       "mainClass": "algorithms.hard_questions.median_of_two_sorted_arrays.median_of_two_sorted_arrays",
@@ -16,7 +23,7 @@
       "stopAtEntry": false,
       "externalConsole": true,
       "cwd": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/easy_questions/remove_array_element",
-      "program": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/easy_questions/remove_array_element/build/Debug/outDebug",
+      "program": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/easy_questions/remove_array_element/build/Release/outRelease",
       "MIMode": "gdb",
       "miDebuggerPath": "C:/Program Files/mingw64/bin/gdb.exe",
       "setupCommands": [

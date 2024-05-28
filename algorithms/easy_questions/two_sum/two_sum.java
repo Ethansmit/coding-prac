@@ -1,3 +1,5 @@
+package algorithms.easy_questions.two_sum;
+
 import java.util.HashMap;
 import java.util.Map;
 
