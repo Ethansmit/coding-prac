@@ -1,0 +1,46 @@
+Name: Number of Steps to Reduce a Number in Binary Representation to One
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    Given the binary representation of an integer as a string "s", return the number of steps to reduce it to 1 under the following rules:
+        - The curent number is even, you have to divide it by 2.
+        - The current number is odd, you have to add 1 to it.
+
+Assumptions:
+    - It is guranteed that you can always reach one for all test cases.
+    - s.length >= 1
+    - s only consists of 0's or 1's
+    - s[0] == 1
+
+Example:
+    Input: s = "10"
+    Output: 1
+
+    Input: s = "1101"
+    Output: 6
+
+
+Solution Explanation:
+    Iteration, O(N):
+        Given the operations specified in the description, we can treat the operations to get to 1 by adding a number that is the
+        given number minus 1. We can build this number by starting from the least significant bit and moving up to the most significant,
+        using the operations given.
+
+        Algorithm Pseudocode:
+            1. Initialize our steps counter and carry bit.
+            2. Iterate through the string from the least significant bit to the most doing the following for each bit.
+                - If the bit equals 1, then this menas that either the bit = 1 or carry = 1.
+                    - Increment steps by 2 (one addition and divide by two)
+                    - carry = 1
+                - If the bit equals 0, increment steps by 1.
+            3. Return carry + steps to account for any remaining carry at the end of the operation.
+
+        Proof of Correctness:
+            We follow the given algorithm, but for the operations needed to construct the value of s - 1. This will give us the number of steps
+            that would be needed if we followed the operations in reverse, using s to get to 1. Hence, we return the correct number of steps to
+            obtain 1 from s.
+
+        Proof of Runtime:
+            We iterate through s, looking at each bit once, hence the runtime is O(N).
