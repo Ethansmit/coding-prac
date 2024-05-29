@@ -1,0 +1,44 @@
+Name: Remove Duplicates from Sorted Array
+Type: Algorithm
+Difficulty: Easy 
+From: LeetCode
+
+Description:
+    Given an integer array "nums" sorted in ascending order, remove the duplicates in-place such that each unique element
+    appears at most once. The relative order of the array should remain the same. Return an int of the number of unique
+    values in the array.
+
+    Change nums such that the first k elements are all unique elements, and return k.
+
+Assumptions:
+    - nums.length >= 1
+    - nums is sorted in ascending order.
+
+Example:
+    Input: nums = [0,0,1,2,3]
+    Output: 4
+
+    Input: nums = [0,0,0,0,1,1,1,1,1,2,2,5,6,7,7]
+    Output: 6
+
+
+Solution Explanation:
+    Iteration, O(N):
+        Due to the fact that the array is sorted, we just need to keep a pointer which indicates where the first instance of
+        a value goes when we run into it. The algorithm will iterate through nums, with value "i", checking if the previous
+        value is different from the current, if so, then we have ran into a unique value, which is then set at nums[index].
+
+        Algorithm Pseudocode:
+            1. Create index value, set to 1 because atleast one unique value must exist.
+            2. Iterate through nums, starting at i = 1, doing the following:
+                - If nums[i] != nums[i - 1], then set nums[index] = nums[i] and add one to index.
+
+        Proof of Correctness:
+            We collect all of the unique values up to the kth element by looping through the array and checking if
+            nums[i] != nums[i - 1]. The only instance this is true is when the previous value is different, and because the 
+            array is sorted, we know that nums[i] will either be a single value or a chain of the same value. Because nums[i]
+            is the first instance of the value, we place it at the correct position in the array, indicated by index. Because
+            of this, we know that we will return the number of unique values in the array, hence the algorithm is correct.
+
+        Proof of Runtime:
+            We visit each element only once, hence our runtime is O(N).

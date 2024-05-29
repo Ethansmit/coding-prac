@@ -1,13 +1,15 @@
 class reduce_binary_rep_to_one:
     def numSteps(s):
+        # Variables for steps and carry bit.
         steps = 0
         carry = 0
         
+        # For loop starting at the least significant bit and moving left.
         for i in range(len(s) - 1, 0, -1):
-            if int(s[i]) + carry == 1:
+            if int(s[i]) + carry == 1: #the bit is odd. 2 operations.
                 carry = 1
                 steps += 2
-            else:
+            else: #bit is even, 1 operation.
                 steps += 1
         
         return steps + carry
