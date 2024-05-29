@@ -1,0 +1,72 @@
+Name: Candy
+Type: Algorithm
+Difficulty: Hard
+From: LeetCode
+
+Description:
+    There are n children standing in a line. Each child is assigned a rating value given in the integer array "ratings." You are giving
+    candies to these children subjected to the following conditions:
+        - Each child must have atleast one candy.
+        - Children with a higher rating get more cnadies than their neighbors.
+    
+    Return the minimum number of candies you need to have to distribute the candies to the children.
+
+Assumptions:
+    - ratings.length == n (number of children)
+    - n >= 1
+    - ratings[i] >= 0
+
+Example:
+    Input: ratings = [1,0,2]
+    Output: 5
+
+    Input: ratings = [1,2,2]
+    Output: 4
+
+
+Solution Explanation:
+    One-Pass Greedy Algorithm, O(N):
+        The goal is to minimize the amount of total candy given, using the conditions described above, we can implement a Greedy
+        algorithm which accomplishes our task. Because ratings only applies to the adjacent child, then the goal is to adjust
+        the candy for a given child based upon the adjacent ratings, minimizing the total candy given. We can simplify our algorithm
+        by utilizing a one-pass algorithm by tracking the rates of change and adjusting the candy given based on the rate of growth
+        between the current child's and the previous child's ratings.
+
+        Notes for the variables:
+         - up : Counts the number of children in a row from the last such that the ratings are increasing.
+         - down : Counts the number of children in a row from the last such that the ratings are decreasing.
+         - peak : tracks the highest point in an increasing sequence. Useful for adjusting candies in a decreasing sequence.
+
+        Algorithm Pseudocode:
+            1. Initialize ret = 1 (at least one child exists and they need 1 candy)
+            2. Initialize up, down, and peak to 0.
+            3. Loop through the ratings doing the following for each pair of adjacent children (current and previous children)
+                - rating is increasing: increment peak and up by 1, down = 0, ret += up + 1 (current child needs more candy from larger rating).
+                - rating is decreasing: increment down by 1, up = 0, ret += down. If peak is >= to down, decrement ret by 1.
+                - rating is same: set down, up, and peak to 0, add 1 to ret.
+
+        Proof of Correctness:
+            We can see that given the ratings, the ratings forms increasing, decreasing or constant changes between any given children. Because of
+            this, we can abide by the given conditions by analyzing the ratings of the current and previous children and seeing if we need to given
+            the child less, more, or the same amount of candy. There are three situations to analyze.
+
+            1. rating is increasing. This implies that from some child up to the previous child, the change in ratings has a positive slope. This means
+            that we know that each successive child has to have one more candy than the previous. If the current child has a larger rating than the previous
+            then we know that the child must have one more candy, hence we increase up by to account for this.
+
+            2. rating is decreasing. This implies that the ratings form a peak, and then have a negative slope from the peak onwards. This means that
+            we know that each successive child from the peak can be adjusted to have one less candy than the other. If the current child has a smaller rating
+            than the previous, then we can give the current child less candy. We also have another situation if the peak >= down. In this case, we can 
+            decrease the number of candies given because the peak child can share the same number of candies as one of the children in the decreasing sequence.
+
+            3. rating is the same. In this situation, the two children can be given the same amount of candies, in this case one to minimize the number of candies
+            given.
+
+            Following the three situations, we can build a peak method sweep which observes the rate of change and distributes the least amount of candies while
+            abiding by the conditions set. Hence the algorithm is correct.
+
+        Proof of Runtime:
+            The algorithm visits each rating once, meaning the algorithm has a runtime of O(N).
+        
+
+    Credit: vanAmsen (LeetCode)
