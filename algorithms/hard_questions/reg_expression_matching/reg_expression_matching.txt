@@ -1,0 +1,84 @@
+Name: Regular Expression Matching
+Type: Algorithm
+Difficulty: Hard
+From: LeetCode
+
+Description:
+    Given an input string 's' and a pattern 'p', implement regular expression matching with support for '.' and '*' where:
+        - '.' matches any single character.
+        - '*' matches zero or more of the preceding element.
+    
+    The matching should cover the entire input string and not partial.
+
+Assumptions:
+    - s.length >= 1
+    - p.length >= 1
+    - s only contains english letters.
+    - p only contains english letters, '.', and '*'.
+    - Any instance of '*' is guranteed to have a previous valid character to match.
+
+Example:
+    Input: s = "aa", p = "a"
+    Output: false
+
+    Input: s = "ab", p = ".*"
+    Output: true
+
+
+Solution Explanation:
+    Dynamic Programming, O(N^2):
+        The intuitive approach involves recursive checking each time we encounter a wildcard character. In such cases, we recompute
+        all possible iterations of the previous pattern. This approach can have a high possible runtime, being expoenential in the worst case.
+        We can optimize a reucrisve approach by cacheing the intermediate results by asking ourselves dp(i,j): does text[i:] match with
+        pattern[j:]? With our DP approach, we start at the very end and worry about two cases, if the pattern is a '*' or if the pattern is
+        a normal character or '.'.
+
+        Algorithm Pseudocode:
+            1. Initalize i = len(s) - 1 and j = len(p) - 1 and backtrack, solving for the following steps recursively.
+            2. Deal with base cases:
+                - Case 1: i == -1 and j == -1, both string exhausted, hence match.
+                - Case 2: i != -1 and j == -1, pattern exhausted but not string, no match.
+                - Case 3: If String exhausted nd pattern contains '*', check for matches
+                    - Traverse back in pattern to find a match or check if all chars are '*'
+                        - If reached start of pattern, then all chars are '*', hence match.
+                        - Otherwise not match.
+                - Case 4: If string exhausted and current pattern is not '*', no match.
+            3. Deal with normal cases, two cases possible while backtracking:
+                - Case 1: pattern[current] == '*'
+                    - First backtrack and ignore '*' and preceding characters in pattern.
+                    - Then, check if match preceding character with current string character.
+                - Case 2: pattern[current] == '.' or pattern[current] == string[current]
+                    - backtrack on the preceding characters of both strings, if match, then we set (i,j) as true.
+            4. If none of the cases, then (i,j) is false.
+
+        Proof of Correctness:
+            We have three cases to consider when matching.
+
+            1. Base Cases not including '*'. We see that if our pattern matching results in i = -1 and j = -1, then
+            we have a match, as our problem reduces to an empty string to an empty pattern. But, if our pattern is empty
+            but not our string, then clearly our pattern does not match with the string, hence (i,j) is false.
+
+            2. '*' Cases. When our algorithm encounters a '*', we must analyze the two situations, first backtracking
+            on the characters before the '*' and the preceding character. This checks if we simply set '*' and the preceding
+            character to empty, and we still recieve a pattern match with (i,j), then clearly (i,j) is true. Otherwise, we 
+            must check if the preceding character matches with the current string character or the previous pattern character is
+            '.'. In both scenarios, it is possible that we can pattern match the pattern before the '*' with the string at i - 1.
+            If this is the case, then '*' can match the pattern with the string at j - 1 through i - 1, and hence is true.
+            
+            
+            We then note in the case that i == -1 and p[j] == '*', that we have to check if the rest of the pattern consists
+            of '*', as if so, then we can consider the case a match. Then our final base case is if i == -1 and p[j] != '*',
+            indicating that our pattern has characters left while our string doesn't, meaning that we don't have a match.
+
+            3. Direct matching. If p[j] is equal to s[i] or p[j] == '.', then we simply backtrack the previous characters
+            and return true if our backtracking returns true as well for the (i,j) pair. This ensures that our path of matching
+            in the cache is correct for the case that we do have a direct match.
+
+            Because of the base cases, we can utilize mathematical induction to demonstrate correctness, as the above cases reduce the
+            problem to previous steps, allowing us to solve any sized problem correctly given our cases above. Hence, through
+            Mathematical Induction, we have proven correctness. 
+
+        Proof of Runtime:
+            Each call of backtrack on (i,j) for i = 0, ..., len(string) and j = 0, ..., len(pattern) is done
+            once. Because each call is a constant time operation of looking back at previous results, the time complexity
+            is hence O(n*m) or abstracted to O(N^2)
