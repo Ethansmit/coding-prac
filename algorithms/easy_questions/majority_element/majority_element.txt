@@ -1,0 +1,57 @@
+Name: Majority Element
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Given an array "nums" of size n, return the majority element.
+
+    The majority element is the element that appears more than floor(n/2) times. You may assume that the majority element always exists
+    in the array.
+
+Assumptions:
+    - nums.length == n
+    - n >= 1
+
+Example:
+    Input: nums = [3,2,3]
+    Output: 3
+
+    Input: nums = [2,2,1,1,1,2,2]
+    Output: 2
+
+
+Solution Explanation:
+    Moore Voting Algorithm, O(N):
+        The first approach would be to sort the array and find the middle element, though this is accomplished in O(NlogN). It then becomes
+        apparent that we can then create a more efficent algorithm by utilizing a hash map, and storing each instance of the values in the 
+        map. This approach would be O(N). On further analysis of the array, we see that the majority element will always exist, and will always
+        contain atleast half the elements in the array. Knowing this, we can develop a simple counting algorithm that will scan through the array
+        and hold the majority candidate. A simple way to view this algorithm is that each value is a voter in an election, and since we are looking
+        for the majority vote, we can be assurred that we can obtain the majority vote by assuming that our current candidate is the the majority
+        vote, and going down the array will show if this candidate is or isn't the majority candidate, changing it when we run across a 
+        better candidate. 
+        
+        Algorithm Pseudocode:
+            1. Initalize ad count and candidate variable to 0.
+            2. loop through nums doing the following
+                - If the current value is equal to the candidate, add one to count.
+                - If the current vlaue is not equal to the candidate, then decrement count by 1.
+                - If count == 0, then the current value is the new candidate, and count = 1.
+
+        Proof of Correctness:
+            Since we are looking for the majority element, we can assume that atleast half or more of the elements will be the correct majority element.
+            Because this is the case, even if our candidate swaps to the incorrect answer, the majority element will obtain the candidate position again
+            as it will surely decrement count enough times to swap the candidate back. A way to look at this problem is that the candidate value will be
+            half or more of nums, while the rest of the values encompass the other half, so if we simply view the problem in terms of the candidate vs the
+            rest of the nums, we see that the candidate will always return on top of count, even if the rest of the other elements that aren't the candidate
+            are the same value. In the case that our candidate isn't the correct answer, we will see that as we move through nums, we will see more values
+            that aren't the candidate over the current candidate, which will result in count = 0, and hence a new candidate being selected, and eventually,
+            the correct candidate being selected. 
+
+            Finally, in the case that we have an array with two elements that have the same number of occurences, the final num in nums will be the tie breaker,
+            and this value will also be correct as it abides by our definition of "majority element," that being the element that occupies at least floor(n/2)
+            of the elements in nums.
+
+        Proof of Runtime:
+            We visit each element once in nums, hence our runtime is O(N).
