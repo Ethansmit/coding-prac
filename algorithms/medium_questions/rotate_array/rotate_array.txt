@@ -1,0 +1,64 @@
+Name: Rotate Array
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    Given an integer array nums, rotate the array to the right by k steps, where k is a non-negative value.
+
+Assumptions:
+    - k >= 0
+    - nums.length >= 1
+
+Example:
+    Input: nums = [1,2,3,4,5,6,7], k = 3
+    Output: [5,6,7,1,2,3,4]
+
+    Input: nums = [-1, 3, 99, 52, 60, -100, 120], k = 2
+    Output: [-100, 120, -1, 3, 99, 52, 60]
+
+
+Solution Explanation:
+    Reversing, O(N):
+        The intuitive solution is to create a temp array, store all the results of the initial input array, then loop through the
+        input array and place the elements into their correct position. This solution runs in O(N) time, but utilizes O(N) space. A
+        new goal is to develop an algorithm which utilizes O(1) space. This can be accomplished by rethinking how we reorient the
+        array. The main idea is that we will always take the last k elements and move them to the front of the array. A means of 
+        accomplishing this goal is to reverse the entire array, then reverse the first k elements and rest to emulate this 
+        movement of the last k elements to the front without hte use of an auxiliary data structure.
+
+        Algorithm Pseudocode:
+            1. Ensure that k is <= nums.size().
+            2. Reverse the entire array.
+            3. Reverse the first k elements.
+            4. Reverse the last nums.size() - k elements.
+
+        Proof of Correctness:
+            The above algorithm will take the number of elements that will be placed at the front of the array after shifting the 
+            first element k times and place those k elements at the end to the front. Because we reverse the whole array, at first,
+            the first k elements will now be the k elements that would be placed at the front from the original nums. Below demonstrates
+            this fact with an example:
+
+            nums = [1,2,3,4,5,6,7], k = 3
+
+            Note this division being the elements shifted to the front
+            [1,2,3,4|5,6,7] -> [5,6,7,1,2,3,4]
+
+            If we were to reverse nums, we get:
+            [7,6,5|4,3,2,1]
+
+            Then, following the algorithm we get:
+            [5,6,7|4,3,2,1] -> [5,6,7|1,2,3,4]
+
+            Which is our desired result.
+
+            We can abstract this to work for all arrays.
+
+            nums = [a_1, a_2, ..., a_n-k-1|a_n-k, a_n-k+1 ..., a_n]
+            -> [a_n, ..., a_n-k+1, a_n-k| a_n-k-1, ...., a_2, a_1]
+            -> [a_n-k, a_n-k+1, ..., a_n| a_n-k-1, ..., a_2, a-1]
+            -> [a_n-k, a_n-k+1, ..., a_n|a_1, a_2, ..., a_n-k-1]
+
+        Proof of Runtime:
+            Here, we utilize three reversals, the first is an O(N) operation and the third and fourth step reverse k and n - k elements,
+            adding up to an O(N) operation. Hence the total runtime is O(2N) which is generalized to O(N). Space complexity is O(1).
