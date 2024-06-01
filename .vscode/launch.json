@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "best_time_buy_sell_stock",
+      "request": "launch",
+      "mainClass": "algorithms.easy_questions.best_time_buy_sell_stock.best_time_buy_sell_stock",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
+      "type": "java",
       "name": "remove_dup_2",
       "request": "launch",
       "mainClass": "algorithms.medium_questions.remove_duplicates_sorted_array_2.remove_dup_2",

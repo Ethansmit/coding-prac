@@ -1,0 +1,48 @@
+Name: Best Time to Buy and Sell Stock
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Given an array of prices, "prices", where prices[i] gives the price of a given stock on the ith day, return the maximum
+    possible profit that can be achieved. This can be done by finding the best start and end date to buy and sell the stock. 
+    If no profit is possible to achieve, then return 0.
+
+Assumptions:
+    - prices.length >= 1
+    - prices[i] >= 0
+
+Example:
+    Input: prices = [7,6,4,3,1]
+    Output: 0
+
+    Input: prices = [7,1,5,3,6,4]
+    Output: 5
+
+
+Solution Explanation:
+    Greedy Approach, O(N):
+        The main goal is to find the maximum value difference between two days that can be achieved in the prices array. In order to do this,
+        we always want to buy at the lowest possible price and sell at any point beyond the lowest possible price that achieves the maximum 
+        amount of profit. To achieve this, we will always choose the lowest price day and compare any days onwards to find the largest profit.
+
+        Algorithm Pseudocode:
+            1. Initialize variable max_profit = 0 and start_day = 0.
+            2. Loop through prices doing the following:
+                - Check if the prices[i] - prices[start_day] > max_profit, if so, set max_profit to this new difference.
+                - Check if prices[i] < prices[start_day], if so, then start_day = i.
+
+        Proof of Correctness:
+            It is clear how we change our max_profit variable, as if we encounter a new day where the prices go up that create a larger profit
+            than max_profit, then we will store this new profit, which will give us the maximum profit as we go thorugh the array.
+
+            The main point is the changing of our start_day to be the lowest price everytime. Because our goal is to achieve the maximum profit, we want
+            to always choose the cheapest day to buy the stock, because the potential for profit is theoretically larger using the smallest price.
+            When we swap to the smallest price, we ensure that if there is a peak later in prices, then we will achieve the maximum amount of profit
+            possible by buying on the cheapest possible day versus keeping the original start_day. Because the new start_day is ahead in the array of the 
+            old start_day, we will then achieve the best profit possible at that point. But in the case that the new_start day doesn't have a day in the
+            rest of prices that will be larger than max_profit, then we will simple keep our current max_profit. This gurantees that we will always find
+            the potential largest profit in the array.
+
+        Proof of Runtime:
+            We loop through prices once, visiting each element one time. Hence, our algorithm runs in O(N) time.
