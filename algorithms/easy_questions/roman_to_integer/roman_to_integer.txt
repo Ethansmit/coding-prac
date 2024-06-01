@@ -1,0 +1,41 @@
+Name: Roman to Integer
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Roman numeral are represented by seven different symbols: I(1), V(5), X(10), L(50), C(100), D(500), M(1000).
+
+    Using the common rules for Roman Numerals, convert a given roman numeral to its integer form.
+
+Assumptions:
+    - s.length >= 1
+    - s only contains Roman Numeral characters.
+    - s is a valid Roman Numeral.
+
+Example:
+    Input: s = "III"
+    Output: 3
+
+    Input: s = "MCMXCIV"
+    Output: 1994
+
+
+Solution Explanation:
+    Map and Loop, O(N):
+        Create a map of the roman numerals and their respective values and loop through the string and convert the characters to their
+        corresponding values. For each character, check if the preceding or succeding char is an 'I.'
+
+        Algorithm Pseudocode:
+            1. Create map of roman numeral to integer.
+            2. Loop through the input string doing the following:
+                - Map the current char to our created map and check is the next character is greater than the current. If so, then we
+                  subtract its values from our answer, otherwise add it.
+
+        Proof of Correctness:
+            There are two cases to consider when adding a numeral to our answer. The first is if its a preceding character that needs to be
+            subtracted from the succeding character, or if it is just a normal character to be added to our list. In dealing with these two
+            cases, we can parse the roman numeral correctly.
+
+        Proof of Runtime:
+            We look through each char of the string once, hence the runtime is O(N), space is O(1).
