@@ -1,6 +1,8 @@
 class roman_to_int(object):
     def romanToInt(self, s):
         result = 0
+        
+        # Dictionary for Roman numerals.
         m = {
             'I': 1,
             'V': 5,
@@ -12,9 +14,10 @@ class roman_to_int(object):
         }
         
         for i in range(len(s)):
+            # Check for subtraction character.
             if i < len(s) - 1 and m[s[i]] < m[s[i + 1]]:
                 result -= m[s[i]]
-            else:
+            else: #Else normal character.
                 result += m[s[i]]
         
         return result

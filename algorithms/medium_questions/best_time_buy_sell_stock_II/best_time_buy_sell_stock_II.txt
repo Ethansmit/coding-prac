@@ -1,0 +1,57 @@
+Name: Best Time to Buy and Sell Stock II
+Type: Medium
+Difficulty: Algorithm
+From: LeetCode
+
+Description:
+    Given an integer array "prices" where "prices[i]" is the prices of a given stock on the ith day.
+
+    On each day, you may decide to buy and/or sell the stock. You can hold at most one share of the stock at any time. However, you
+    can buy it then immediately sell it on the same day.
+
+    Find and return the maximum profit you can achieve.
+
+Assumptions:
+    - prices.length >= 1.
+    - prices[i] >= 1.
+
+Example:
+    Input: prices = [7,1,5,3,6,4]
+    Output: 7
+
+    Input: prices = [7,6,4,3,1]
+    Output: 0
+
+
+Solution Explanation:
+    Maximum Sub Array, O(N):
+        The main goal is to achieve the maximum subarray for a a given buy price. This is done by first, always choosing the smallest value
+        to buy, and then by always choosing the largest value to sell. If we follow this logic, we will obtain a series of subarrays that
+        achieve a the largest possible values, which adds up to our profit return.
+
+        Algorithm Pseudocode:
+            1. Initialize profit variable.
+            2. Loop through prices doing the following
+                - If prices[i] < prices[i + 1], then do the following
+                    - Create new index variable, sell_price = i + 1.
+                    - while prices[sell_price] < prices[sell_price + 1], add sell_price++
+                    - profit += prices[sell_price] - prices[i]
+                    - i = sell_price
+
+        Proof of Correctness:
+            There are two considerations for constructing a maximum subarray, choosing the lowest possible price to buy and the highest possible
+            price for selling.
+
+            For buying, we won't buy until the next price is larger than our current price, in which we will now seek to sell. If there is a price
+            ahead that is cheaper than our current, than we would make more money buying on that day rather than buy on the current day because both
+            prices will be behind the same sell price, so buying on the cheaper day makes more money.
+
+            Similarly for selling, we don't want to sell on a day where the next day is larger than the current sell day. We want to maximize profits
+            so the best practice is to choose a sell date where the next price after the current price is lower. If we sell on this day given the next
+            day has a lower price, than we maximize our profits by selecting the highest possible price in an invterval. Then, we can continue to make
+            money by buying the next day, which is lower than our sell price from the previous stock.
+
+            This will create a series of subarrays which maximize our profits.
+
+        Proof of Runtime:
+            We visit each price once to either buy, sell, or skip, hence our runtime is O(N).
