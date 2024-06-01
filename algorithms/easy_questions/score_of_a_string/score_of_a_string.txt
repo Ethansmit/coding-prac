@@ -1,0 +1,35 @@
+Name: Score of a String
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    You are given a string "s." The score of a string is defined as the sum of the absolute difference between the ASCII values of adjacent characters.
+
+    Return the score of "s."
+
+Assumptions:
+    - s.lenght >= 2
+    - s only contains English lower case letters.
+
+Example:
+    Input: s = "hello"
+    Output: 13
+
+    Input: s = "zaz"
+    Output: 50
+
+
+Solution Explanation:
+    For loop, O(N):
+        This problem simply involves looping through the string and performing the absolute value calculation of the distance in ASCII.
+
+        Algorithm Pseudocode:
+            1. Set score = 0.
+            2. Loop through the string and for each pair of values, calculate their ASCII distance.
+
+        Proof of Correctness:
+            Using the absolute value operator ensures that distances are calculated.
+
+        Proof of Runtime:
+            The algorithm loops through every character in the string and does a constant time operation, hence the runtime is O(N).
