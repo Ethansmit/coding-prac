@@ -1,0 +1,69 @@
+Name: Sudoku Solver
+Type: Algorithm
+Difficulty: Hard
+From: LeetCode
+
+Description:
+    Write a program to solve a Sudoku puzzle by filling the empty cells.
+
+    A sudoku solution must satisfy all of the following rules:
+        - Each of the digits 1-9 must occur exactly once in each row.
+        - Each of the digits 1-9 must occur exactly once in each column.
+        - Each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes in the grid.
+    
+    the '.' indicates an empty cell.
+
+Assumptions:
+    - board.length == 9
+    - board[i].length == 9
+    - board[i][j] is a digit or '.'
+    - Input board has exactly one solution.
+
+Example:
+    Input: board = 
+    ["5","3",".",".","7",".",".",".","."]
+    ["6",".",".","1","9","5",".",".","."]
+    [".","9","8",".",".",".",".","6","."]
+    ["8",".",".",".","6",".",".",".","3"]
+    ["4",".",".","8",".","3",".",".","1"]
+    ["7",".",".",".","2",".",".",".","6"]
+    [".","6",".",".",".",".","2","8","."]
+    [".",".",".","4","1","9",".",".","5"]
+    [".",".",".",".","8",".",".","7","9"]
+    
+    Output: 
+    ["5","3","4","6","7","8","9","1","2"]
+    ["6","7","2","1","9","5","3","4","8"]
+    ["1","9","8","3","4","2","5","6","7"]
+    ["8","5","9","7","6","1","4","2","3"]
+    ["4","2","6","8","5","3","7","9","1"]
+    ["7","1","3","9","2","4","8","5","6"]
+    ["9","6","1","5","3","7","2","8","4"]
+    ["2","8","7","4","1","9","6","3","5"]
+    ["3","4","5","2","8","6","1","7","9"]
+
+
+Solution Explanation:
+    Backtracking, O(N^N^2):
+        The main goal is that we need to validate the board for each placement we have. The validation involves checking the row, column,
+        and box that the value we are trying to insert is in, checking the above ideas. The main issues is doing this in an effective
+        amount of time. The simplest solution is to simply backtrack when failing and we can do this recursively by replacing attempts
+        that fail with empty cells again and then trying new values instead.
+
+        Algorithm Pseudocode:
+            1. Loop through each cell and check if the current cell is an empty one.
+            2. for every possible char '123456789' do the following:
+                - Place the char in the empty cell, and then recursively call our solve method.
+                - Validate the placement and do either of the following:
+                    - If the placement works, then we return true.
+                    - If the placement fails, then we replace the board with empty cells and try a new character.
+
+        Proof of Correctness:
+            This method will fill the board in with every possible char, and backtracking when failing. By doing this, we will
+            go through the possible solutions and check if they follow the above conditions.
+
+        Proof of Runtime:
+            Because we backtrack in the case of failures, our potential worst runtime is O(9^(9^2)) = O(9^81). Though it is dependent
+            on the number of empty spaces and usually as the board is being solved, the average runtime will decrease, thought the worst
+            case still stands to be O(N^N^2). Space Complexity is O(E), where E is the number of empty cells, as each recursive call
+            adds to the stack a constant number of variables. Though, E could be considered a constant, so space compleixty is O(1).
