@@ -1,0 +1,71 @@
+Name: Text Justification
+Type: Algorithm
+Difficulty: Hard
+From: LeetCode
+
+Description:
+    Given an array of strings "words" and a width "maxWidth," format the text such that each line has exactly "maxWidth"
+    characters and is fully (left and right) justified.
+
+    You should pack you words in a greedy approach; that is, pack as many words as you can in each line. Pad extra spaces
+    ' ' when necessary so that each line has exactly maxWidth characters.
+
+    Extra spaces between words should be distributed as evenly as possible. If the number of spaces on a line does not
+    divide evenly between words, the empty slots on the left will be assigned more spaces than the slots on the right.
+
+    For the last line of text, it should be left-justified, and no extra space is inserted between words.
+
+    Notes:
+        - A word is defined as a character sequence consisting of non-space characters only.
+        - Each word's length is guranteed to be greater than 0 and not exceed maxWidth.
+        - The input array words contains at least on word.
+
+Assumptions:
+    - words.length >= 1
+    - words[i].length >= 1
+    - words[i] only consists of English letters and symbols.
+    - maxWidth >= 1
+    - words[i].length <= maxWidth
+
+Example:
+    Input: words = ["This", "is", "an", "example", "of", "text", "justification."], maxWidth = 16
+    Output: 
+    [
+        "This    is    an",
+        "example  of text",
+        "justification.  "
+    ]
+
+    Input: words = ["Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"], maxWidth = 20
+    Output: 
+    [
+        "Science  is  what we",
+        "understand      well",
+        "enough to explain to",
+        "a  computer.  Art is",
+        "everything  else  we",
+        "do                  "
+    ]
+
+
+Solution Explanation:
+    Solution, O(N):
+        The solution involves creating an algorithm that does the above conditions. The main goal is that for each line that is created, we
+        need to obtain the number of words that can fit in the line while maintaining the conditions for width and then text justify the line
+        by adding the required blank spaces into the line.
+
+        Algorithm Pseudocode:
+            1. Initalize an index for the first word, "left", and result to be returned.
+            2. While left < words.length, do the following:
+                - Find the right word of the line
+                - Justify all the words between left and right
+                - Set left = right + 1.
+
+        Explanation of Correctness:
+            The algorithm concept is simply reformatting the text. The only problem is making sure that finding the right side word is done 
+            correctly. We note that we must keep into account the size of the right side word, and ensure that the number of words that we
+            have between left and right will have an even amount of padding in between.
+
+        Explanation of Runtime:
+            The method runs through each word in words and formats the words into the returned result. Hence, our runtime is O(N), while our space
+            is also O(N) as we create a return variable, result, which is in order of the size of our input.

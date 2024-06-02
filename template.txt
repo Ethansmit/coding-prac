@@ -24,8 +24,8 @@ Solution Explanation:
         Algorithm Pseudocode:
             1. Steps here
 
-        Proof of Correctness:
+        Explanation of Correctness:
             Explanation
 
-        Proof of Runtime:
+        Explanation of Runtime:
             Explanation
