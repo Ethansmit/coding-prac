@@ -1,0 +1,40 @@
+Name: Reverse String
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Given an array of characters "s", reverse the string. This must be done modifying the input array in-place with O(1)
+    extra memory.
+
+Assumptions:
+    - s.length >= 1
+    - s[i] is a printable ASCII character.
+
+Example:
+    Input: s = ["h","e","l","l","o"]
+    Output: ["o","l","l","e","h"]
+
+    Input: s = ["G","e","o","r","g","e"]
+    Output: ["e","g","r","o","e","G"]
+
+
+Solution Explanation:
+    Two pointers, O(N):
+        We can swap two chars in the array by creating a temp variable that holds one of the characters and using two pointers,
+        one which starts at the end of the array and goes inwards, the other at the beginning and goes to the end. 
+
+        Algorithm Pseudocode:
+            1. Initialize two pointers i and j, one at the beginning of the string, the other at the end.
+            2. While (i < j) do the following:
+                - Create a temp variable to store s[j]
+                - s[j] = s[i], s[i] = temp
+                - iterate i and j.
+
+        Proof of Correctness:
+            Using this method, we will swap the back and beginning elements and move them to their correct positions. The use of the
+            temp variable ensures that the original s[j] is not lost during the swap.
+
+        Proof of Runtime:
+            We iterate and swap each element of s once, hence the runtime is O(N). Because we only use pointer indexes, the space complexity
+            is O(1).
