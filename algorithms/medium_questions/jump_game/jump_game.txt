@@ -1,0 +1,51 @@
+Name: Jump Game
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    Given an integer array "nums," you are initially positioned at array's first index, and each element in the array represents
+    your max jump length at that position.
+
+    Return True if you can reach the last index, or false otherwise.
+
+Assumptions:
+    - nums.length >= 1
+    - nums[i] >= 0
+
+Example:
+    Input: nums = [2,3,1,1,4]
+    Output: true
+
+    Input: nums = [3,2,1,0,4]
+    Output: false
+
+
+Solution Explanation:
+    Kadane's Algorithm, O(N):
+        The intuitive approach is to start by utilizing a backtracking or recurisve method which will start at the first index
+        and go through every possible combination of movements to the end, eventually returning a possible path. This method clearly
+        is redundant, and can be improved using memoization to remember previous jump paths. But, we can utilize another dynamic 
+        programming algorithm which checks for a given index the maximum subarray sum. This maximum subarray sum can be viewed
+        as our total reach from index i and can be used to employ what our maximum jump path is. Essentially, instead of looking
+        at individual paths, we are looking at the maximum reach amongst all possible paths given the jumps from every
+        index before our current.
+
+        Algorithm Pseudocode:
+            1. Initialize reach to 0.
+            2. Loop through nums doing the following at each index:
+                - If the reach is less than the index, this implies there is no possible way to reach that index, hence return false.
+                - set reach to the max between reach and the current index i + nums[i], the jump height of the current index.
+
+        Proof of Correctness:
+            We note that for any given index we calculate the maximum subarray sum for that given point. This is done by i + nums[i], as
+            this allows us to see how far into the array we can reach using the current index's jump height. Its important to note that
+            it is possible that a previous jumpheight might be able to reach further into the array, so we want to choose the max between
+            the two to ensure a maximum reach. Given that we have a maximum reach into the array, we will always be ensured that we can
+            reach as far as possible because we don't necessarily care about the path, we are concerned about actually reaching the last
+            index. Given this fact, if we cannot reach a given index, this implies that amongst all possible paths, our maximum subarray
+            sum (reach) is lower than the current index, implying that it is impossible to go further into the array, hence the answer is
+            false.
+
+        Proof of Runtime:
+            We visit each element of nums once, giving us a runtime of O(N). Space complexity is O(1) as we only utilize one variable.
