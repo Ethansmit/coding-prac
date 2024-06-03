@@ -24,7 +24,9 @@ Solution Explanation:
         Explanation
 
         Algorithm Pseudocode:
-            1. Steps here
+            Solution {
+                
+            }
 
         Explanation of Correctness:
             Explanation

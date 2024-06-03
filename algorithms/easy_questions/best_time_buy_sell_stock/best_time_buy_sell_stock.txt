@@ -21,28 +21,118 @@ Example:
 
 
 Solution Explanation:
-    Greedy Approach, O(N):
-        The main goal is to find the maximum value difference between two days that can be achieved in the prices array. In order to do this,
-        we always want to buy at the lowest possible price and sell at any point beyond the lowest possible price that achieves the maximum 
-        amount of profit. To achieve this, we will always choose the lowest price day and compare any days onwards to find the largest profit.
+    Brute-Force, O(N):
+        The Naive approach is to utilize a double nested loop, loop through each price and then checking for the max price
+        for all given prices ahead of the current.
 
         Algorithm Pseudocode:
-            1. Initialize variable max_profit = 0 and start_day = 0.
-            2. Loop through prices doing the following:
-                - Check if the prices[i] - prices[start_day] > max_profit, if so, set max_profit to this new difference.
-                - Check if prices[i] < prices[start_day], if so, then start_day = i.
+            Solution {
+                // max profit to return
+                max_profit = 0
 
-        Proof of Correctness:
-            It is clear how we change our max_profit variable, as if we encounter a new day where the prices go up that create a larger profit
-            than max_profit, then we will store this new profit, which will give us the maximum profit as we go thorugh the array.
+                // Loop through all prices, then for each price, loop through the prices in front and see if the are the
+                // larger than than max profit, if so, then it is the new max_profit made.
+                for (i = 0; i < prices.size() - 1; i++) {
+                    for (j = i + 1; j < prices.size(); j++) {
+                        if (prices[j] - prices[i] > max_profit) {
+                            max_profit = prices[j] - prices[i]
+                        }
+                    }
+                }
 
-            The main point is the changing of our start_day to be the lowest price everytime. Because our goal is to achieve the maximum profit, we want
-            to always choose the cheapest day to buy the stock, because the potential for profit is theoretically larger using the smallest price.
-            When we swap to the smallest price, we ensure that if there is a peak later in prices, then we will achieve the maximum amount of profit
-            possible by buying on the cheapest possible day versus keeping the original start_day. Because the new start_day is ahead in the array of the 
-            old start_day, we will then achieve the best profit possible at that point. But in the case that the new_start day doesn't have a day in the
-            rest of prices that will be larger than max_profit, then we will simple keep our current max_profit. This gurantees that we will always find
-            the potential largest profit in the array.
+                return max_profit
+            }
 
-        Proof of Runtime:
+        Explanation of Correctness:
+            This will run through every possibility, selecting the best outcome to return.
+
+        Explanation of Runtime:
+            The runtime is O(N^2) as we loop through all the elements, then for each element, loop through the array again.
+
+            Space complexity is O(1)t as we only store one variable.
+    
+    Tabulation, O(N):
+        We clearly see that the brute-force approach is quite costly as we are recalculating results that we have seen 
+        before. So, a new approach is to just store the largest prices that any given price sees in the array. Then, we
+        can use this new array of largest prices to select the max profit for any given point in the arrray. We simply just
+        choose the largest difference between our largest price array and the current price for all prices.
+
+        Algorithm Pseudocode:
+            Solution {
+                n = prices.size()
+                // Store the largest prices throughout the prices array
+                largest_prices = int[n]
+
+                // Scan through prices once to obtain the largest prices from the back to the front of prices.
+                for (i = n - 2; i >= 0; i--) {
+                    largest_prices[i] = max(largest_prices[i + 1], prices[i])
+                }
+
+                // Scan again, this time using our new storage of largest prices, determine the maxprice.
+                max_price = 0
+                for (j = 0; j < n; j++) {
+                    max_profit = max(max_profit, largest_prices[i] - prices[i])
+                }
+
+                return max_profit
+            }
+
+        Explanation of Correctness:
+            We see that by using largest_prices, we can find, for each price[i], what the largest possible profit 
+            we can make for that price by subtracting price[i]'s value with largest_prices[i]. Hence, by scanning
+            through, we can obtain max_profit by finding this difference and selecting the one with the largest
+            value.
+
+        Explanation of Runtime:
+            Because we run through the array twice, our run time is O(N + N) which is abstracted to O(N).
+
+            Our space complexity is O(N) because we require an auxiliary array to store the largest prices.
+
+    Greedy Approach, O(N):
+        This final approach, the goal is to minimize our space complexity. We note that the above problem, we
+        are calculating the largest maximum sum for price[i] to another index j >= i. We can still calculate
+        this result without the use of an auxiliary array by storing the max_profit, and using a Greedy
+        algorithm to always use the lowest prices to maximize potential profit.
+
+        Algorithm Pseudocode:
+            Solution {
+                // Profit value to return.
+                max_profit = 0
+                // This is the "buy day" for the stock. We need this variable for the greedy aspect.
+                start_day = 0
+
+                // Loop through prices.
+                for (i = 1; i < prices.size(); i++) {
+                    // Check if the current price - buy day price is larger than max_profit. If so, new max_profit.
+                    if (prices[i] - prices[start_day] > max_profit) {
+                        max_profit = prices[i] - prices[start_day]
+                    }
+                    // If the current price is lower than the start_day price, then we buy on this day.
+                    // This is to because any price that we see onwards, we will gain more profit buying on this
+                    // day then start_day.
+                    else if (prices[i] < prices[start_day]){
+                        start_day = i
+                    }
+                }
+
+                return max_profit
+            }
+
+        Explanation of Correctness:
+            It is clear how we change our max_profit variable, as if we encounter a new day where the prices go up that 
+            create a larger profit than max_profit, then we will store this new profit, which will give us the maximum 
+            profit as we go thorugh the array.
+
+            The main point is the changing of our start_day to be the lowest price everytime. Because our goal is to achieve 
+            the maximum profit, we want to always choose the cheapest day to buy the stock, because the potential for profit is 
+            theoretically larger using the smallest price. When we swap to the smallest price, we ensure that if there is a peak 
+            later in prices, then we will achieve the maximum amount of profit possible by buying on the cheapest possible day 
+            versus keeping the original start_day. Because the new start_day is ahead in the array of the old start_day, we will 
+            then achieve the best profit possible at that point. But in the case that the new_start day doesn't have a day in the 
+            rest of prices that will be larger than max_profit, then we will simple keep our current max_profit. This gurantees 
+            that we will always find the potential largest profit in the array.
+
+        Explanation of Runtime:
             We loop through prices once, visiting each element one time. Hence, our algorithm runs in O(N) time.
+
+            Our space complexity simplifies down to O(1) because we only utilize two int variables and no auxiliary array.
