@@ -1,0 +1,72 @@
+Name: Length of Last Word
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Given a string "s" consisting of words and spaces, retunr the length of the last word in the string.
+
+    A word is a maximal substring consisting of non-space characters only.
+
+Assumptions:
+    - s.length >= 1
+    - s consists of only English letters and spaces ' '.
+    - There will be at least one word in s.
+
+Example:
+    Input: s = "Hello World"
+    Output: 5
+    Explanation: The last word is "World" with length 5.
+
+    Input: s = "George is the coolest"
+    Output: 7
+    Explanation: The last word is "coolest" with length 7.
+
+    Input: s = "Goodbye    to     you   "
+    Output: 3
+    Explanation: The last word is "you" with length 3.
+
+
+Solution Explanation:
+    Reverse Single pointer Loop, O(N):
+        Here, the main goal is to isolate the last word from the spaces, or retrieve the full word if the 
+        last word is the only word in s. We can accomplish this by establishing a pointer at the end of the
+        string and moving the pointer back until we hit a character that isn't a space. This will be the
+        last character in the last word. Then, we will iterate backwards until he hit the first space.
+        Every iteration, we will increment a length variable which will be returned at the end.
+
+        Algorithm Pseudocode:
+            // Tail will be our pointer index.
+            tail = s.size() - 1 
+            // length will be our counter variable, it will store the length of the last word.
+            length = 0 
+
+            // move tail backwards until we hit a a character that isn't a space, indiciating that last
+            // letter of the last word.
+            while (tail >= 0 and s[tail] == ' ') {
+                tail--
+            }
+            // move tail backwards until we hit the first space character. This indicates that we have move
+            // passed the first character of the last word, indiciating that we have read the whole word.
+            // Every iteration, add to tail.
+            while (tail >= 0 and s[tail] != ' ') {
+                length++
+                tail--
+            }
+
+            return length
+
+        Explanation of Correctness:
+            By moving tail to the last character of the last word, we can then know where the word ends
+            in s, whether it is the last letter in s or it is followed by spaces. Then, we move tail backwards
+            counting each time we do so until we hit a space or the beginning of s, indicating the final word is 
+            all of s. Because we want to read he length of the final word, each iteration of the while loop indicates 
+            that the current chracter is not a space, meaning it is a letter in the final word, hence we increase 
+            length. Once we hit a space, or the beginning of s, we stop the loop, resulting in length containing
+            the size of the final word. 
+
+        Explanation of Runtime:
+            Because we visit each char in s once, the algorithm runs in O(N) time. 
+            
+            The time complexity runs in O(1) time because we initialize two integer variables for any given size
+            string.
