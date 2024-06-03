@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "append_test",
+      "request": "launch",
+      "mainClass": "algorithms.medium_questions.append_chars_to_make_subseq.append_test",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
+      "type": "java",
       "name": "test_test_justification",
       "request": "launch",
       "mainClass": "algorithms.hard_questions.text_justification.test_test_justification",

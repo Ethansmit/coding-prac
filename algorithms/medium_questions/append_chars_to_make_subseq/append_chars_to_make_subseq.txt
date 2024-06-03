@@ -1,0 +1,70 @@
+Name: Append Characters to String to Make Subsequence
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    You are given two strings 's' and 't' consisting of only lowercase English Letters.
+
+    Return the minimum number of characters that need to be appended to the end of 's' so that 't'
+    becomes a subsequence of 's'.
+
+    A subsequence is a string that can be derived from another string by deleting some or no 
+    characters without changing the order of the remaining characters.
+
+Assumptions:
+    - s.length >= 1
+    - 's' and 't' consist only of lowercase English letters.
+
+Example:
+    Input: s = "coaching", t = "coding"
+    Output: 4
+    Expanation: Appending "ding" to the end of s gives "coachingding", where deleting "aching" 
+                makes "coding" a subsequence. 
+
+    Input: s = "z", t = "abcde"
+    Output: 5
+    Explanation: Appending "abcde" to "z" to make "zabcde" makes 't' a subsequence. 
+
+
+Solution Explanation:
+    Two-pointers, O(N):
+        We note that by definition, in order for 't' to be a subsequence of 's', we need to delete 
+        characters in 's' such that we can form 't'. So, a solution is to just see how many of the
+        characters of 't' are in 's' in order of how they appear in 't'. We can scan 's', see how 
+        many of these characters are missing, and just append the missing characters to the end to
+        make 't' and subsequence of 's'.
+
+        Algorithm Pseudocode:
+            Solution {
+                // The two-pointers, one for 't' and another for 's'.
+                s_pointer = 0
+                t_pointer = 0
+
+                // Variables for length in while loop.
+                s_len = s.length
+                t_len = t.length
+
+                while s_pointer < s.length && t_pointer < t.length {
+                    if (s[s_pointer] == t[t_pointer]) {
+                        t_pointer++
+                    }
+                    s_pointer++
+                }
+
+                return t_len - t_pointer
+            }
+
+        Explanation of Correctness:
+            The algorithm will first account for if there are characters of 't' that are already in
+            's' in order of how they appear in 't'. The while loop will search and count for these
+            characters. If there are characters of 't' that are not found in 's', then we will simply
+            just need to account for the rest of the characters in 't' that are not found in 's'. The
+            number of characters that need to be added at the end will hence be our answer.
+
+        Explanation of Runtime:
+            The use of a single loop through s and t that scans the size of t number of elements makes
+            the runtime of this algorithm O(m), where m is the size of t, or more generally O(N).
+
+            The space complexity is O(1) because we only need two integers to track the subsequence
+            through the arrays.
