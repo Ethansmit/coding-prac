@@ -36,25 +36,27 @@ Solution Explanation:
         Every iteration, we will increment a length variable which will be returned at the end.
 
         Algorithm Pseudocode:
-            // Tail will be our pointer index.
-            tail = s.size() - 1 
-            // length will be our counter variable, it will store the length of the last word.
-            length = 0 
+            Solution {
+                // Tail will be our pointer index.
+                tail = s.size() - 1 
+                // length will be our counter variable, it will store the length of the last word.
+                length = 0 
 
-            // move tail backwards until we hit a a character that isn't a space, indiciating that last
-            // letter of the last word.
-            while (tail >= 0 and s[tail] == ' ') {
-                tail--
-            }
-            // move tail backwards until we hit the first space character. This indicates that we have move
-            // passed the first character of the last word, indiciating that we have read the whole word.
-            // Every iteration, add to tail.
-            while (tail >= 0 and s[tail] != ' ') {
-                length++
-                tail--
-            }
+                // move tail backwards until we hit a a character that isn't a space, indiciating that last
+                // letter of the last word.
+                while (tail >= 0 and s[tail] == ' ') {
+                    tail--
+                }
+                // move tail backwards until we hit the first space character. This indicates that we have move
+                // passed the first character of the last word, indiciating that we have read the whole word.
+                // Every iteration, add to tail.
+                while (tail >= 0 and s[tail] != ' ') {
+                    length++
+                    tail--
+                }
 
-            return length
+                return length
+            }
 
         Explanation of Correctness:
             By moving tail to the last character of the last word, we can then know where the word ends
