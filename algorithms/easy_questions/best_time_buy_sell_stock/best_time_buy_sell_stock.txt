@@ -21,7 +21,7 @@ Example:
 
 
 Solution Explanation:
-    Brute-Force, O(N):
+    Brute-Force, O(N^2):
         The Naive approach is to utilize a double nested loop, loop through each price and then checking for the max price
         for all given prices ahead of the current.
 
