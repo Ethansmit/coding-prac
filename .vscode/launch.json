@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "test_longest_palindrome",
+      "request": "launch",
+      "mainClass": "algorithms.easy_questions.longest_palindrome.test_longest_palindrome",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
+      "type": "java",
       "name": "append_test",
       "request": "launch",
       "mainClass": "algorithms.medium_questions.append_chars_to_make_subseq.append_test",

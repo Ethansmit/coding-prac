@@ -1,0 +1,87 @@
+Name: Longest Palindrome
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Given a string 's' which consists of lowercase or uppercase letters, return the length of the longest
+    palindrome that can be built with those letters.
+
+    Letters are case sensitive, for example, "Aa" is not considered a palindrome.
+
+Assumptions:
+    - s.length >= 1
+    - s consists of lowercase and/or uppercase English letters only.
+
+Example:
+    Input: s = "abccccdd"
+    Output: 7
+    Expanation: One palindrome that can be built is "dccaccd", length of 7. 
+
+    Input: s = "a"
+    Output: 1
+    Explanation: Longest palindrome is "a", length 1. 
+
+
+Solution Explanation:
+    Hashing, O(N):
+        We note that given a string, a character can be included in the longest palindrome if the number of
+        occurences of the character is even. This can be the case if either the character occurs an even number
+        of times or the number of ocurrences can be turned into an even number, besides 0, by subtracting by one.
+        An approach we can do is loop through the string and count the number of occurences of each character,
+        then subtract the number of odd counted characters from the length of the string.
+
+        Note: another approach is to sort 's' then do the same idea as above, though this approach involves two
+              loops through 's', arguably having a worse performance.
+
+        Algorithm Pseudocode:
+            Solution {
+                // Store variable for the number of odd count characters in 's'.
+                odd_count = 0
+                // Create map for storing the count of characters.
+                map char_count
+
+                // Loop through string and count the occurneces. 
+                for (i = 0; i < s.length < i++) {
+                    char_count[s[i]]++
+                    // Check if the char has an odd count, if so add to our odd counter.
+                    if (char_count[s[i]] % 2 == 1) {
+                        odd_count++
+                    }
+                    // Otherwise, char count is even, remove one from odd counter.
+                    else {
+                        odd_count--
+                    }
+                }
+
+                // I will offer an explanation for the calculation below. Note that the two main
+                // return cases are if we have odd counted characters in 's' or if they are all
+                // even with or without a single odd counted character.
+                if (odd_count > 1) {
+                    return s.length - odd_count + 1
+                }
+                return s.length
+            }
+
+        Explanation of Correctness:
+            We note that there are two return cases that we need to account for after counting the total number
+            of occurences of a char in 's' as well as the number of char's in 's' with odd counts. We need to know
+            the odd counts as if we have an odd counted char in 's', then we can only have one instance of an odd
+            counted char, placing the odd char in the middle of the palindrome, like example 1. Though, only one
+            instance of the odd counted chars can be used in the middle, the rest must remove one character from
+            the count, placing the rest of the characters, an even number, on the sides to create the palindrome.
+            Hence, when creating a return count, we take the length, minus the number of odd counted chars, and
+            add one because we can select one of these characters to have a char in the middle to form the 
+            complete palindrome.
+
+            The other case that we have is that we have all even counted characters and either one or none odd
+            counted characters. In this case, we can easily create the palindrome by dividing the even counted
+            characters and placing them in opposite halves, then if we have an odd counted character, then place
+            one in the middle and split the rest in half and place them on opposite ends. Hence, we return the
+            length of the largest palindrome in either case.
+
+        Explanation of Runtime:
+            The runtime of the algorithm is O(N) as we loop through the string once to count the occurences of each
+            character.
+
+            The time complexity is O(m), where m is the number of unique characters in 's'.
