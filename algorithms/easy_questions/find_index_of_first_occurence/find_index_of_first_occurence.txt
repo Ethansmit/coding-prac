@@ -1,0 +1,121 @@
+Name: Find the Index of the First Occurrence in a String
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Given two strings 'needle' and 'haystack', return the index of the first occurrence of 'needle' in 'haystack', or 
+    -1 if 'needle' is not part of 'haystack'.
+
+Assumptions:
+    - haystack.length >= 1
+    - needle.length >= 1
+    - haystack and needle consist of only lowercase English letters.
+
+Example:
+    Input: haystack = "happyandglad", needle = "happy"
+    Output: 0
+    Expanation: happy occurs at index 0 through 5 in 'haystack'.
+
+    Input: haystack = "georgeisgreat", needle = "gen"
+    Output: -1
+    Explanation: "gen" does not appear in  'haystack'
+
+
+Solution Explanation:
+    Brute-force, O(N^2):
+        The naive approach is to check every possible starting position in the haystack. With each character in 
+        'haystack', we check to see if the next characters are the characters of 'neelde'. If not, then we break and
+        move to the next character.
+
+        Algorithm Pseudocode:
+            Solution {
+                // Stores the lengths of 'needle' and 'haystack'.
+                h_len = haystack.length
+                n_len = needle.length
+
+                // Loop through 'haystack'. For each char in 'haystack' check if the next n_len chars are
+                // 'needle', if so, return i (current char), otherwise break and iterate i.
+                for (i = 0; i < h_len - n_len; i++) {
+                    for (j = 0; j < n_len; j++) {
+                        if (haystack[i + j] != needle[j]) {
+                            break
+                        }
+                    }
+                    if (j == n_len) {
+                        return i
+                    }
+                }
+                // Return -1 if 'needle' not in 'haystack'.
+                return -1
+            }
+
+        Explanation of Correctness:
+            The algorithm will check every possible substring of 'haystack' for every character in 'haystack', which
+            if 'needle' exists in 'haystack' it will be found by checking if the second index is equal to the length
+            of 'needle's size. Otherwise, it will return -1 if the outer loop completes, implying that no character
+            in haystack is succeded by the 'needle' characters.
+
+        Explanation of Runtime:
+            The runtime of the algorithm loops through every possible subtring of 'haystack' using 'needle' to
+            determine the index of first occurence. Hence, the worst case is that every character in the array
+            is almost a substring of 'needle', meaning the algorithm would check up needle.length - 1 times.
+            Hence the runtime is O(n*m) where n is the length of 'haystack' and m is the length of 'needle'. 
+            This can be generalized to O(N^2).
+
+            The space complexity is O(1) as the algorithm only stores two int variables.
+    
+    KMP, O(N):
+        Utilizing the KMP algorithm, we can be faster for larger words by utilizing the a longest proper prefix array 
+        to shift the j index to avoid redundancy in matching. This allows us to shift the characters forward without 
+        needing to revist already matched characters to the 'needle'.
+
+        Algorithm Pseudocode:
+            Solution {
+                // Store lengths of 'needle' and 'haystack'
+                h_len = haystack.length
+                n_len = needle.length
+
+                // compute the lps array. Requires helper function to create LPS array.
+                lps = computeLPSArray(needle)
+
+                // Loop through 'haystack' and match 'needle', using lps array when failing.
+                for (i = 0, j = 0; i < h_len;) {
+                    // If equal, increase indexes.
+                    if (haystack[i] == needle[j]) {
+                        i++
+                        j++
+                    }
+                    // This indicates match, return adjusted index.
+                    if (j == n_len) {
+                        return i - j
+                    }
+                    // Update indexes using lps when failing
+                    if (i < h_len && haystack[i] != needle[j]) {
+                        if (j != 0) {
+                            j = lps[j - 1]
+                        } else {
+                            i++
+                        }
+                    }
+                }
+                // Returns -1 if no match occurs.
+                return -1
+            }
+
+        Explanation of Correctness:
+            This utilizes the KMP algorithm. To summarize its correctness, we iterate through 'haystack' and
+            match the characters. If a match exist, we will iterate until j is the length of the 'needle' indiciating
+            a correct match. If we fail, we utilize the lps failure function to shift j to the number of already
+            matched characters. If we can't find a match, then we return -1.
+
+        Explanation of Runtime:
+            The runtime is O(n + m), where 'n' is the length of 'haystack' and 'm' is the length of 'needle' as we 
+            match the 'needle' to the 'haystack', and shift 'needle' by what we already matched to avoid matching
+            characters in 'haystack' that we have already matched.
+
+            The time complexity is O(m) as we create Longest proper prefix array using the 'needle'.
+
+            Note: Using KMP is generally efficent, but for smaller cases, like matching a substring in a word,
+                  using the brute-force approach is actually more efficent. But, KMP is generally better for 
+                  larger pattern matching problems.
