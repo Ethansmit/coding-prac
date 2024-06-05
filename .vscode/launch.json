@@ -64,8 +64,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/easy_questions/remove_array_element",
-      "program": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/easy_questions/remove_array_element/build/Release/outRelease",
+      "cwd": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/hard_questions/substring_with_concat_words",
+      "program": "c:/Users/Ethan/Documents/Code/coding-prac/algorithms/hard_questions/substring_with_concat_words/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "C:/Program Files/mingw64/bin/gdb.exe",
       "setupCommands": [

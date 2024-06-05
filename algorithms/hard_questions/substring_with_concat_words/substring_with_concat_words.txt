@@ -1,0 +1,109 @@
+Name: Substring with Concatenation of All Words
+Type: Algorithm
+Difficulty: Hard
+From: LeetCode
+
+Description:
+    You are given a string 's' and an array of strings 'words'. All the strings of 'words' are of the same length.
+
+    A concatenated string is a string that exactly contains all the strings of any permutation of 'words' concatenated.
+
+        - For example, if 'word = ["ab","cd","ef"]', then "abcdef", "abefcd", "cdabef", "cdefab", "efabcd", and 
+          "efcdab" are all concatenated strings. "acdbef" is not a concatenated string because it is not the 
+          concatenation of any permutation of 'words'.
+    
+    Return an array of the starting indices of all the concatenated substrings in 's'. You can return the answer in any
+    order.
+
+Assumptions:
+    - s.length >= 1
+    - words.length >= 1
+    - words[i].length >= 1
+    - s and words[i] consist of lowercase English letters.
+
+Example:
+    Input: s = "barfoothefoobarman", words = ["foo","bar"]
+    Output: [0,9]
+    Explanation: Substring at 0 is "barfoo", a concatenation of 'words' and at 9, "foobar" is a concatenation of
+                 'words'.
+
+    Input: s = "wordgoodgoodgoodbestword", words = ["word","good","best","word"]
+    Output: []
+    Explanation: There is no concatenation of 's' that is made up of 'words' 
+
+
+Solution Explanation:
+    Sliding Window, O(N^2):
+        An approach is that for any given index i in the string 's', the words from index i until the length of words
+        should be a substring that either is or isn't a concatenation of words. If we observe the frequency of the
+        words within this substring of 's', we should see that we have the same frequency of words as in 'words' within
+        the substring. We can hence solve this problem using a sliding window.
+
+        Algorithm Pseudocode:
+            Solution {
+                array result
+
+                // Create two maps, one for the window and another for frequency comparison.
+                map record
+                map word_count
+
+                // Populate word_count from words.
+                for (word in words) {word_count[word]++}
+
+                // Create variables for use later.
+                word_length = words[0].length
+                word_count = words.size()
+                n = s.length
+
+                // Iterate through the length of 's' using a sliding window.
+                for (i = 0; i < word_length; i++) {
+                    window_left = i
+                    sum = 0
+                    record.clear()
+
+                    // Iterate through 's' using step size 'word_length'.
+                    for (j = i; j < n - word_length; j += word_length) {
+                        temp = s.substring(j , k)
+
+                        if (word_count[temp] != word_count.end()) {
+                            record[temp]++
+                            sum++
+
+                            while(record[temp] > word_count[temp]) {
+                                record[s.substring(window_left, word_length)]--
+                                window_left += word_length
+                                sum--
+                            }
+
+                            if (sum == word_count) {
+                                result.add(window_left)
+                            }
+                        }
+                        else {
+                            record.clear()
+                            sum = 0
+                            window_left = j + k
+                        }
+                    }
+                }
+                return result
+            }
+
+        Explanation of Correctness:
+            Because we ensure that every substring of words[0] length * word_count is checked in 's', we gurantee that
+            we will find any possible combination of words within that length. We utilize the frequency of the words
+            found within the substring with the words found in 'words' to understand if the substring our window is
+            looking at is in fact a concatenation of 'words'. We see that for each substring in the window, if 
+            the current word is not in word_count, then we note that the word is not found in words, meaning that 
+            the current string can't be a concatenation. Then, if the count of the words is greater than the freqeucny
+            that the words appear in 'words' then the current string can't be a concatenation of 'words' either. Then
+            we note that if we don't ever meet either of these conditions, and the count of words is equal to the number
+            of words founds in 'words', then the substring must be a concatenation of 'words', hence our sliding window
+            algorithm will find the correct substrings of 's' which will be concatenations of 'words'.
+
+        Explanation of Runtime:
+            The expected runtime is O(n x k) as the sliding window algorithm takes O(k) time and the inner loop takes
+            O(n/k) times to see if the substring contains a concatenation of 'words'. This can be generalized as O(N^2).
+
+            The space complexity is O(m + m), where 'm' is the size of 'words', as we create two maps to record the 
+            frequency of 'words'. This can be genearlized as O(N).
