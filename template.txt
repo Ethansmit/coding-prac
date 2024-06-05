@@ -12,7 +12,7 @@ Assumptions:
 Example:
     Input: 
     Output: 
-    Expanation: 
+    Explanation: 
 
     Input: 
     Output: 

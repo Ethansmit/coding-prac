@@ -1,0 +1,123 @@
+Name: Find Common Characters
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Given a string array 'words', return an array of all characters that show up in all strings within the 'words'
+    (including duplicates). You may return the answer in any order.
+
+Assumptions:
+    - words.length >= 1
+    - words[i].length >= 1
+    - words[i] only consists of lowercase English letters.
+
+Example:
+    Input: words = ["bella", "label", "roller"]
+    Output: ["e","l","l"]
+    Explanation: "e", and two "l"s can be found in all three words.
+
+    Input: words = ["abcdef", "abc", "ab"]
+    Output: ["a", "b"]
+    Explanation: "a" and "b" can be found in all three words.
+
+
+Solution Explanation:
+    Dictionary, O(N):
+        To solve this problem, we need to calculate the frequency that characters appear for each word. We then take
+        this frequency, and intersect them where they are equal. Each frequency of characters that are equal amongst
+        the words are common characters that can be returned.
+
+        Algorithm Pseudocode:
+            Solution {
+                // List of chars to return.
+                result;
+                // Create array of dictionaries for each word's character.
+                freq_map = array[hashmap<word,char>]
+
+                for (i = 0; i < words.length; i++) {
+                    freq_map[i] = new Hashmap
+                    // Loop through and add one to each occurrence of the character.
+                    for (j = 0; j < words[i].length; j++) {
+                        freq_map[i].put(words[i][j], freq.map[i][j] + 1)
+                    }
+                } 
+
+                // Loop through the freq_map and put common characters in result.
+                for (i = 0; i < freq_map[0].size; i++) {
+                    common = true
+                    for (j = 0; j < freq_map.size; j++) {
+                        if (freq_map[j][freq_map[i]] >= 0  &&  freq_map[0][i] >= 0) {
+                            freq_map[j][freq_map[i]]--
+                        } else {
+                            common = false
+                        }
+                    }
+                    if (common) {
+                        result.add(freq_map[0][i])
+                        freq_map[0][i]--
+                        i--
+                    }
+                }
+            }
+
+        Explanation of Correctness:
+            We calculate the frequency of each character in each word. Then we loop through our frequency map and if
+            there is a letter than is greater than 1 for both the current word and the loop word, then we subtract
+            from the loop word and move onto the next word. Because we remove one from the map index, we ensure
+            that we dont overcount the words. We add the character to our result and move onto the next character.
+
+        Explanation of Runtime:
+            The runtime is O(N + N) as we first generate a map for each word and each letter per word, which is O(N),
+            then we loop through our map and determine if its a common character. More generally, the algorithm runs
+            in O(N) time.
+
+            The time complexity is O(N), as we generate a map for each letter of all the words.
+    
+    Erasing, O(N^2):
+        Another method is to erase letters between words that don't share any characters. This method is similar to the
+        previous method except that that goal is to minimize space usage.
+
+        Algorithm Pseudocode:
+            Solution {
+                // Result to return.
+                result
+
+                // Sort words by length.
+                sort(words)
+
+                for (i = 0; i < words[0].length; i++) {
+                    // Store variable for if the word exists in each word.
+                    coomon = true
+                    // Check if letter exists in each word
+                    for (j = 1; j < words.length; j++) {
+                        // Letter not found.
+                        if (words[i].find(words[0][c]) == -1) {
+                            common = false
+                            break
+                        } else { // letter found, erase to not count again.
+                            words[i].erase(words[i], find(words[0][c]), 1)
+                        }
+                    }
+                    // If common, then letter is in all other words.
+                    if (common) {
+                        result.push_back(words[0][c])
+                    }
+                }
+
+                return result
+            }
+
+        Explanation of Correctness:
+            We look through each word, and if a letter exists in all the words, we erase that letter and common = true,
+            which is returned in result. We erase the letter to ensure that it isn't counted again if there are 
+            multiple common letters of the same letter.
+
+        Explanation of Runtime:
+            The runtime is O(N + N^2), or generally O(N^2), because we sort the words first, then we loop through the words
+            and remove the duplicate characters. This isn't as efficent runtime wise but for smaller examples, this runs 
+            more efficently.
+
+            Time complexity is O(m) where 'm' is the number of characters in common between the words. This is smaller in
+            time complexity from the last algorithm.
+    
