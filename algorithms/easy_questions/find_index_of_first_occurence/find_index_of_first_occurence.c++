@@ -55,32 +55,32 @@ class find_index_of_first_occurence {
 };
 
 int main() {
-    // Example 1
+    // Example 1, answer 0
     std::string haystack1 = "happyandglad", needle1 = "happy";
     printf("Example 1: %d\n", find_index_of_first_occurence::strStr(haystack1, needle1));
 
-    // Example 1
-    std::string haystack1 = "happyandglad", needle1 = "happy";
-    printf("Example 1: %d\n", find_index_of_first_occurence::strStr(haystack1, needle1));
+    // Example 2, answer 2
+    std::string haystack2 = "hello", needle2 = "ll";
+    printf("Example 2: %d\n", find_index_of_first_occurence::strStr(haystack2, needle2));
 
-    // Example 1
-    std::string haystack1 = "happyandglad", needle1 = "happy";
-    printf("Example 1: %d\n", find_index_of_first_occurence::strStr(haystack1, needle1));
+    // Example 3, answer -1
+    std::string haystack3 = "aaaaa", needle3 = "b";
+    printf("Example 3: %d\n", find_index_of_first_occurence::strStr(haystack3, needle3));
 
-    // Example 1
-    std::string haystack1 = "happyandglad", needle1 = "happy";
-    printf("Example 1: %d\n", find_index_of_first_occurence::strStr(haystack1, needle1));
+    // Example 4, answer 2
+    std::string haystack4 = "abc", needle4 = "c";
+    printf("Example 4: %d\n", find_index_of_first_occurence::strStr(haystack4, needle4));
 
-    // Example 1
-    std::string haystack1 = "happyandglad", needle1 = "happy";
-    printf("Example 1: %d\n", find_index_of_first_occurence::strStr(haystack1, needle1));
+    // Example 5, answer 0
+    std::string haystack5 = "same", needle5 = "same";
+    printf("Example 5: %d\n", find_index_of_first_occurence::strStr(haystack5, needle5));
 
-    // Example 1
-    std::string haystack1 = "happyandglad", needle1 = "happy";
-    printf("Example 1: %d\n", find_index_of_first_occurence::strStr(haystack1, needle1));
+    // Example 6, answer -1
+    std::string haystack6 = "short", needle6 = "longerthan";
+    printf("Example 6: %d\n", find_index_of_first_occurence::strStr(haystack6, needle6));
 
-    // Example 1
-    std::string haystack1 = "happyandglad", needle1 = "happy";
-    printf("Example 1: %d\n", find_index_of_first_occurence::strStr(haystack1, needle1));
+    // Example 7, answer 1
+    std::string haystack7 = "mississippi", needle7 = "issi";
+    printf("Example 7: %d\n", find_index_of_first_occurence::strStr(haystack7, needle7));
 
 }
