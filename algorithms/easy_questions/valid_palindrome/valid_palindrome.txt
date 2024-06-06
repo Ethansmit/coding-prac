@@ -1,0 +1,69 @@
+Name: Valid Palindrome
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    A phrase is a 'palindrome' if, after converting all uppercase letters into lowercase letters and removing all
+    non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters
+    and numbers.
+
+    Given a string 's', return 'true' if it is a palindrome, or 'false' otherwise.
+
+Assumptions:
+    - s.length >= 1
+    - 's' consists only of printable ASCII characters.
+
+Example:
+    Input: s = "A man, a plan, a canal: Panama"
+    Output: true
+    Explanation: "amanaplanacanalpanama" is a palindrome 
+
+    Input: s = "race a car"
+    Output: false
+    Explanation: "raceacar" is not a palindrome.
+
+
+Solution Explanation:
+    Two-Pointers, O(N):
+        We can develop an algorithm by utilizing two pointers, one pointing at the end, the other at the beginning.
+        We then move towards the center using the arrays, if the pointers are looking at a character that is not
+        a alphabet character, then we move the pointer forward/backwards. Otherwise, we compare them and see if they
+        are the same, otherwise we return false.
+
+        Algorithm Pseudocode:
+            Solution {
+                // Pointers at beginning and end
+                beg_ptr = 0
+                end_ptr = 0
+
+                while (beg_ptr <= end_ptr) {
+                    if (!s[beg_ptr].isalphachar) {
+                        beg_ptr++
+                    } else if (!s[end_ptr].isalphachar) {
+                        end_ptr++
+                    } else {
+                        if (s[beg_ptr != end_ptr]) {
+                            return false
+                        }
+                        beg_ptr++
+                        end_ptr++
+                    }
+                }
+                return true
+            }
+
+        Explanation of Correctness:
+            The algorithm will account for if the characters are not alphabetic characters by simply just
+            skipping over the character. If the characters are alphabetic, we can then compare them. Because
+            we are seeing if the string is a palindrome, the characters must be the same characters, otherwise
+            they are not, and we can just return false at that point. We then loop through the whole array
+            comparing each alphabetic character. If the string is a palindrome, then the while loop will
+            complete, and we can return true.
+            
+
+        Explanation of Runtime:
+            The runtime is O(N) because we visit each character once to check if its corresponding character at the
+            otherside of the array is the same.
+
+            The space complexity is O(1) as we only store two integer pointers for the start and end elements.
