@@ -1,0 +1,125 @@
+Name: Hand of Straights
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    Alice has some number of cards and she wants to rearrange the cards into groups so that each group of size 
+    'groupSize', and consists of 'groupSize' consecutive cards.
+
+    Given an integer array 'hand' where 'hand[i]' is the value written on the 'ith' card and an integer 
+    'groupSize', return 'true' if she can rearrange the cards, or 'false' otherwise.
+
+Assumptions:
+    - hand.length >= 1
+    - hand[i] >= 0
+    - groupSize >= 1
+
+Example:
+    Input: hand = [1,2,3,6,2,3,4,7,8], groupSize = 3
+    Output: true
+    Explanation: [1,2,3], [2,3,4], [6,7,8] can be created from hand using 'groupSize' 
+
+    Input: hand = [1,2,3,4,5], groupSize = 4
+    Output: false
+    Explanation: 'hand' can't be rearranged into groups of 4.
+
+
+Solution Explanation:
+    Brute-force, O(N^2):
+        A naive approach is to either sort the array then find sequences that are of size 'groupSize', or to take
+        'hand' and loop through it multiple times and create groups, noting when the element has been used in another
+        group or not.
+
+        Algorithm Pseudocode:
+            Solution {
+                n = hand.size - 1
+
+                // keep looping until all groups are made or we have too few elements to make a group.
+                while (n >= 0 && n >= groupSize) {
+                    temp_elem = hand[0]
+                    hand.remove(0)
+                    curr = 1
+                    // Loop to create group
+                    for (i = 0; i < hand.size; ++i) {
+                        // If current group needs elements, keep adding elements.
+                        if (curr <= groupSize) {
+                            // When element found that is greater than current, remove from hand.
+                            if (temp_elem < hand[i]) {
+                                curr++
+                                temp_elem = hand[i]
+                                hand.remove(i)
+                                i--
+                            }
+                        }
+                    }
+                }
+                if (hand.size >= 0) {
+                    return false
+                }
+                return true
+            }
+
+        Explanation of Correctness:
+            This algorithm will find a possible alignment of elements as it will loop through the array multiple times
+            until either there is no elements left or there are not enough elements to make a group of size
+            'groupSize'. Hence the the algorithm will always return true or false correctly.
+
+        Explanation of Runtime:
+            The runtime is O(N^2) as we loop through the sorted array for each index in 'hand', which is of size
+            N.
+
+            Time complexity os O(1) as we use constant variables.
+    
+    Map Frequency, O(NlogN):
+        Another approach to avoid the looking at 'hand' multiple times is to utilize a map to count the frequency of the
+        characters and sorting. This allows us to avoid having to run through 'hand' multiple times. We first need to
+        count the frequency of each card in 'hand', then try to form groups with the first card using the frequency
+        to form the groups. Below is pseudocode demonstrating this idea.
+
+        Algorithm Pseudocode:
+            Solution {
+                // Make sure 'hand' is divisible by 'groupSize'.
+                if (hand.size % groupSize != 0) {
+                    return false
+                }
+
+                // Count the frequency of each card.
+                map card_count
+                for (i = 0; i < hand; ++i) {
+                    card_count[i]++
+                }
+
+                // Form groups
+                for (i = 0; i < card_count.size; ++i) {
+                    card = card_count[i]
+                    count = card_count.size
+
+                    // Form group using starting card.
+                    if (count > 0) {
+                        for (j = 1; j < groupSize; ++j) {
+                            if (card_count[card + i] < count) {
+                                return false
+                            }
+                            card_count[card + i] -= count
+                        }
+                    }
+                }
+
+                return true
+            }
+
+        Explanation of Correctness:
+            The algorithm uses the map to count the frequency of each card, which allows the formation of groups as we iterate
+            through the dictionary. For each card, we make sure that we can either form a group by moving through the sorted
+            dictioanry, or if there aren't enough cards to form a group, then there is not a card ahead of the first card to
+            form a group, hence the algorithm returns false. If we are able remove every card from the dicionary, we will
+            leave the for loop, and return true because at this point, the algorithm has found a potential group for each
+            card.
+
+        Explanation of Runtime:
+            This algorithm runs in O(NLogN) as each formation of groups runs in O(logN) time as each access udpates map
+            by a factor of 'groupSize'. Then, we create groups proportional to the number of elements in 'hand'.
+
+            The time complexity is O(m), where 'm' is the number of unique numbers in 'hand'. This can be generalized as 
+            O(N).
