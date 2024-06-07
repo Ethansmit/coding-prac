@@ -1,0 +1,93 @@
+Name: Replace Words
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    In English, we have a concept called "root", which can be followed by some other word to form another longer word -
+    let's call this word derivative. For example, when the root is "help", follwed by the word "ful", we can form a
+    derivative "helpful."
+
+    Given a 'dictionary' consisting of many roots and a 'sentence' consisting of words seperated by spaces, replace all
+    the derivatives in the sentence with the 'root' forming it. If a derivative can be replaced by more than one 'root',
+    replace it with the 'root' that has the shorest length.
+
+    Return the 'sentence' after the replacement.
+
+Assumptions:
+    - dictionary.length >= 1
+    - dictionary[i].length >= 1
+    - dictionary[i] consists only of lowercase English characters.
+    - sentence.length >= 1
+    - 'sentence' consists only of lowercase English characters.
+    - The number of words in 'sentence' is greater than one.
+    - The length of each word in 'sentence' is greater than one.
+    - Every two consecutive words in 'sentence' will be seperated by exactly one space.
+
+Example:
+    Input: dictionary = ["cat", "bat", "rat"], sentence = "the cattle was rattled by the battery"
+    Output: "the cat was rat by the bat"
+    Explanation: cat-tle, rat-tled, and bat-tery are the derivatives to be replaced.
+
+    Input: dictionary = ["a", "b", "c", "d"], sentence = "aadsfasf absbs bbab cadsfafs"
+    Output: "a a b c"
+    Explanation: a-dsfasf, a-bsbs, b-bab, c-adsfafs are the derivatives to be replaced.
+
+
+Solution Explanation:
+    Trie, O(N):
+        Because we are looking at a subset of every word, and checking if the word aligns with a word in the Given
+        'dictionary' object, we can utilize a trie data structure to check if the prefix of any given word aligns
+        with a word in the dictionary. Using a trie makes the operation efficent and fairly easy.
+
+        Algorithm Pseudocode:
+            Solution {
+                result
+
+                // Build trie on dictionary. Many ways to do this
+                trie = trie(dictionary) // oversimplification
+
+                words = split(sentence, " ")
+
+                // Loop through words and find_root of word.
+                for (i = 0; i < words.length; ++i) {
+                    result += find_root(word)
+                    if (i != words.length - 2) 
+                        result += " "
+                }
+
+                return result
+
+                // Helper function for finding root.
+                find_root(word) {
+                    current = root
+                    prefix = ""
+                    for (i = 0; i < word.length; ++i) {
+                        if char not in current.children
+                            break
+                        current = current.children[word[i]]
+                        prefix += word[i]
+                        if current.end_of_word
+                            return prefixe
+                    }
+                    return word
+                }
+            }
+
+        Explanation of Correctness:
+            Because our goal is to search throught the roots and see if our given word is a derivative of our 
+            roots, the trie will simplify this operation correctly and efficently. Tries ensure that common prefixes
+            are shared among different roots, and can search quickly to find the shorest path that is a prefix for
+            any given word. Because for each word in 'sentence', we check every substring of a given word in the trie,
+            we can gurantee that we will find a root if the word is a derivative of a word in 'dictionary'. Otherwise,
+            the trie will either not complete a word, and we will just simply return the correct word.
+
+        Explanation of Runtime:
+            The runtime involves two steps. The first is the building of the trie, which is an O(L) operation, where
+            L is the length of all the words in 'dictionary' added up. The second is using the trie on each word in 
+            'sentence'. Assuming that there are 'n' words in sentence, and the average length of the words in
+            'sentence' are "M", it will take O(M*n) operations. Hence our total operations are O(L + M*n). This can
+            be generalized to O(N), as O(M*n) will always be a linear operation as it will scan through each characters
+            in sentence once.
+            
+            The space complexity is O(L), as we must build a trie.
