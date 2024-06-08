@@ -1,0 +1,120 @@
+Name: Continuous Subarray Sum
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    Given an integer array 'nums' and an integer 'k', return 'true' if 'nums' has a good subarray or 'false' otherwise.
+
+    A goodsubarray is a subarray where:
+        - its length is at least two.
+        - the sum of the elements of the subarray is a multiple of k.
+    
+    Note that:
+        - A subarray is a contigous part of the array.
+        - An integer 'x' is a multiple of 'k' if there exists an integer 'n' such that x = n * k. '0' is always a multiple
+          of k.
+
+Assumptions:
+    - nums.length >= 1
+    - nums[i] >= 0
+    - sum(nums[i]) >= 0
+    - k >= 1
+
+Example:
+    Input: nums = [23, 2, 4, 6, 7], k = 6
+    Output: true
+    Explanation: [2, 4] is a continuous subarray of size 2 whose elements sum to 6.
+
+    Input: nums = [23, 2, 6, 4, 7], k = 13
+    Output: false
+    Explanation: There is no valid subarray.
+
+
+Solution Explanation:
+    Brute Force, O(N^3):
+        The brute force solution is to double loop through the array, and check is the sum of the elements is a
+        multiple of 'k'.
+
+        Algorithm Pseudocode:
+            Solution {
+                for (i = 0; i < nums.length - 1; ++i) {
+                    for (j = i + 1; j < nums.lenth - 2; ++j) {
+                        sum = 0
+                        for (k = i; k <= j; ++k) {
+                            sum += nums[k]
+                        }
+                        // Check is subarray sum is divisible by k.
+                        if (sum % k == 0) {
+                            return true
+                        }
+                    }
+                }
+                return false
+            }
+
+        Explanation of Correctness:
+            This algorithm will loop through every possibility, ensuring that if there does exist a valid good subarray
+            it will be found as the algorithm loops through every possible subarary and sums its results.
+
+        Explanation of Runtime:
+            The runtime is O(N^3) as it must loop through each starting index, then loop through every possible subarray,
+            then sum each element of the subarray to check if it is a good subarray.
+
+            Space complexity is O(1).
+
+    Prefix Sum, O(N):
+        We can utilize prefix sums to understand if a subarray contains a sum that is divisible by 'k'. We can then store
+        these prefix sums in a map to avoid repetitive calculations.
+
+        Algorithm Pseudocode:
+            Solution {
+                mod_map
+                cumulative_sum = 0
+
+                for (i = 0; i < nums.length; ++i) {
+                    cumulative_sum += nums[i]
+                    mod = cumulative_sum % keep
+
+                    // Ensure mod is not negative.
+                    if (mod < 0) {
+                        mod += k
+                    }
+
+                    // Check if mod values exists already. If so, make sure length greater than two.
+                    if (mod_map.containsKey(mod)) {
+                        if (i - mod_map.get(mod) > 1) {
+                            return true
+                        }
+                    } else {
+                        mod_map.put(mod, i)
+                    }
+                }
+            }
+
+        Explanation of Correctness:
+            The goal is to obtain a subarray from indexes i to j such that the sum of all elements is divisible
+            by k.
+
+            We first note that relationship between prefix sum and the problem.
+                Let sum_j be the prefix sum between 0 and j.
+                Let sum_i be the prefix sum between 0 and i.
+                Note that:
+                    (sum_j - sum_i) % k = 0
+                    sum_j % k - sum_i % k = 0
+                    sum_j % k = sum_i % k
+                
+                Hence, given a sum_j, we want to find some index, i, such that the prefix sum, sum_i, is equal
+                in its modulo value. This shows us that the sum of elements between j and i will result in a sum
+                that is divisible by k.
+            
+            Using the above property, we can then store the prefix sums mod k in a map, and track these values.
+            If we find another prefix sum that is divisble by k, then we note that we have located a 
+            good subarray using the property above.
+
+        Explanation of Runtime:
+            The runtime of the algorithm is O(N) as we pass through the array a single time, and each Hashmap
+            operation is constant.
+
+            Space complexity is O(N) as the hashmap can potentially store up to N elements if there is no 
+            repeats of inputs.

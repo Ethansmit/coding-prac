@@ -1,6 +1,6 @@
 package algorithms.easy_questions.best_time_buy_sell_stock;
 
-class BestTimeBuySellStock {
+public class BestTimeBuySellStock {
     public int maxProfit(int[] prices) {
         int max_profit = 0;
         int start_day = 0;
@@ -38,7 +38,6 @@ class TestBestTimeBuySellStock {
                 System.out.println("Got: " + result);
                 correct = false;
             }
-            //System.out.println("Test case " + (i + 1) + ": " + (actual == expected));
         }
         if (correct) {
             System.out.println("All test cases passed.");
