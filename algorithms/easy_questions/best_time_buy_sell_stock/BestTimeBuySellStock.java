@@ -1,6 +1,6 @@
 package algorithms.easy_questions.best_time_buy_sell_stock;
 
-class best_time_buy_sell_stock {
+class BestTimeBuySellStock {
     public int maxProfit(int[] prices) {
         int max_profit = 0;
         int start_day = 0;
@@ -22,7 +22,7 @@ class best_time_buy_sell_stock {
 
 class TestBestTimeBuySellStock {
     public static void runTests(int[][] testCases, int[] expectedResults) {
-        best_time_buy_sell_stock solution = new best_time_buy_sell_stock();
+        BestTimeBuySellStock solution = new BestTimeBuySellStock();
 
         boolean correct = true;
 

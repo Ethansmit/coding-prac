@@ -28,19 +28,28 @@ Example:
 
 
 Solution Explanation:
-    Solution, O(N):
+    Depth-First Search, O(N):
         In order to evaluate our binary tree, we will utilize a depth-first-search approach, in which we will traverse from the root to the leaves, and climb back up, evaluating
         the nodes boolean opeartions according to their leaves. We can implement this function recurisvely by calling our solution function on the children if our given node
         is an OR or an AND node.
 
         Algorithm Pseudocode:
-            1. Call traverse function on root node.
-            2. Check the root node value, four scenarios.
-                a. If root.val = 0, return False.
-                b. If root.val = 1, return True.
-                c. If root.val = 2, return the result of ORing the traverse of the children of root.
-                d. If root.val = 3, return the result of ANDing the traverse of hte children of root.
-            3. return the result of call traverse on root.
+            Solution {
+                evaluateTree(root){
+                    return traverse(root)
+                }
+                
+                traverse(root) {
+                    if (root.val == 0 || root.val == 1) { // Leaf Node Case
+                        return root.val == 1
+                    } else if (root.val == 2) { // OR node case
+                        return traverse(root.left) || traverse(root.right)
+                    } else if (root.val == 3) { // AND node case
+                        return traverse(root.left) && traverse(root.right)
+                    }
+                    return false
+                }
+            }
 
         Proof of Correctness:
             We note that the base case of our function has two situations, a single node, which will simply return the boolean value of that given node.
@@ -57,3 +66,5 @@ Solution Explanation:
             We see that each node is visited once by the traverse function, then returns a value that is called back by a recurisve call to the function.
             Because evaluating a node for being true or false is constant time, this means that our total runtime will be "c" calls on N nodes,
             Hence, our runtime is O(N).
+
+            Our space complexity is O(N) for each treenode made.

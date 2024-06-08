@@ -1,6 +1,6 @@
 from collections import Counter
 
-class find_common_characters(object):
+class FindCommonCharacters(object):
     def commonChars(self, words):
         if not words:
             return []
@@ -17,7 +17,15 @@ class find_common_characters(object):
         
         return result
     
-def test_common_chars():
+def testCommonChars(test_cases):
+
+    for i, (input_words, expected_output) in enumerate(test_cases):
+        output = FindCommonCharacters.commonChars(FindCommonCharacters, input_words)
+        assert sorted(output) == sorted(expected_output), f"Test case {i+1} failed: {output} != {expected_output}"
+    
+    print("All test cases passed.")
+
+def main():
     test_cases = [
         (["bella", "label", "roller"], ["e", "l", "l"]),  # Common characters
         (["cool", "lock", "cook"], ["c", "o"]),           # Common characters with varying frequencies
@@ -28,15 +36,8 @@ def test_common_chars():
         (["abcd"], ["a", "b", "c", "d"]),                 # Single word
         ([], []),                                         # No words
     ]
-
-    for i, (input_words, expected_output) in enumerate(test_cases):
-        output = find_common_characters.commonChars(find_common_characters, input_words)
-        assert sorted(output) == sorted(expected_output), f"Test case {i+1} failed: {output} != {expected_output}"
     
-    print("All test cases passed.")
-
-def main():
-    test_common_chars()
+    testCommonChars(test_cases)
 
 if __name__=="__main__":
     main()
