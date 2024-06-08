@@ -2,7 +2,6 @@ from collections import Counter
 
 class find_common_characters(object):
     def commonChars(self, words):
-        # No input.
         if not words:
             return []
         

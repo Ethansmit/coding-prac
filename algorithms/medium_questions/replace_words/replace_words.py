@@ -37,21 +37,22 @@ def test_common_chars(test_cases):
 
 def main():
     test_cases = [
-        (["cat", "bat", "rat"], str("the cattle was rattled by the battery"), 
-         str("the cat was rat by the bat")),  # Standard test case.
+        (["cat", "bat", "rat"], 
+         str("the cattle was rattled by the battery"), 
+         str("the cat was rat by the bat")),
         (["a", "b", "c"], str("aadsfasf absbs bbab cadsfafs"), 
-         str("a a b c")), # Single character roots.
+         str("a a b c")),
         (["cat", "bat", "rat"], str("the dog was barking at the moon"), 
-         str("the dog was barking at the moon")), # No replacement,
+         str("the dog was barking at the moon")),
         (["the", "cat", "was", "by", "bat"], str("the cat was by the bat"), 
-         str("the cat was by the bat")), # All words roots.
+         str("the cat was by the bat")),
         (["cat", "bat", "rat"], str("concatenate tebatries ioratnally"), 
-         str("concatenate tebatries ioratnally")), # Roots not prefixes.
+         str("concatenate tebatries ioratnally")),
         (["supercalifragilisticexpialidocious"], 
          str("a supercalifragilisticexpialidocious day"), 
-         str("a supercalifragilisticexpialidocious day")), # Long word
+         str("a supercalifragilisticexpialidocious day")),
         (["int", "inter", "international"], str("internationally intertwined"), 
-         str("int int")) # Roots with common prefixes.
+         str("int int")) 
     ]
     
     test_common_chars(test_cases)

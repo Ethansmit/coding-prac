@@ -35,7 +35,7 @@ class ValidPalindromeTest {
     public static void runTests(String[] testCases, boolean[] expectedResults) {
         valid_palindrome solution = new valid_palindrome();
 
-        boolean allPassed = true;
+        boolean correct = true;
 
         for (int i = 0; i < testCases.length; i++) {
             String testCase = testCases[i];
@@ -47,11 +47,11 @@ class ValidPalindromeTest {
                 System.out.println("Input: \"" + testCase + "\"");
                 System.out.println("Expected: " + expected);
                 System.out.println("Got: " + result);
-                allPassed = false;
+                correct = false;
             }
         }
 
-        if (allPassed) {
+        if (correct) {
             System.out.println("All test cases passed.");
         }
     }
@@ -62,13 +62,23 @@ class ValidPalindromeTest {
         String[] testCases = {
             "A man, a plan, a canal: Panama",
             "race a car",
-            " "
+            " ",
+            "12321",
+            "a",
+            ".,!?",
+            "No 'x' in Nixon",
+            "Hello World!"
         };
 
         boolean[] expectedResults = {
             true,
             false,
-            true
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
         };
 
         runTests(testCases, expectedResults);
