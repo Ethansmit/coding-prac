@@ -1,24 +1,21 @@
+#include <iostream>
 #include <string>
 #include <vector>
 
-class find_index_of_first_occurence {
+class FindIndexOfFirstOccurence {
     public:
         static int strStr(std::string haystack, std::string needle) {
-            // Store the lengths of 'needle' and 'haystack'.
             int h_len = haystack.size();
             int n_len  = needle.size();
 
-            // Compute the lps array.
             std::vector<int> lps = computeLPSArray(needle);
 
-            // Note that i is the current index in 'haystack' and j
-            // is the index of 'needle'
+            // i is index of haystack, j is index of needle.
             for (int i = 0, j = 0; i < h_len;) {
-                // Iterate i and j if we the same character.
                 if (haystack[i] == needle[j]) { 
                     i++, j++;
                 }
-                // This indicates we have a match, return index of first char.
+                // If true we have match
                 if (j == n_len) {
                     return i - j;
                 }
@@ -35,9 +32,8 @@ class find_index_of_first_occurence {
         }
     private:
         static std::vector<int> computeLPSArray(std::string needle) {
-            // Store length of 'needle'
             int n_len = needle.size();
-            // lps array for the failure function.
+
             std::vector<int> lps(n_len, 0);
 
             // Populate lps.
@@ -54,33 +50,46 @@ class find_index_of_first_occurence {
         }
 };
 
+void runTests(const std::vector<std::pair<std::string, std::string>>& inputs, const std::vector<int>& expectedOutputs) {
+    FindIndexOfFirstOccurence obj;
+
+    int correct = 1;
+    for (size_t i = 0; i < inputs.size(); ++i) {
+        int result = obj.strStr(inputs[i].first, inputs[i].second);
+        if (result != expectedOutputs[i]) {
+            std::cout << "Test case " << i + 1 << " failed!" << std::endl;
+            std::cout << "Expected: " << expectedOutputs[i] << std::endl;
+            std::cout << "Got: " << result << std::endl;
+            correct = 0;
+        } 
+    }
+    if (correct) {
+        std::cout << "All test cases passed." << std::endl;
+    }
+}
+
 int main() {
-    // Example 1, answer 0
-    std::string haystack1 = "happyandglad", needle1 = "happy";
-    printf("Example 1: %d\n", find_index_of_first_occurence::strStr(haystack1, needle1));
+    std::vector<std::pair<std::string, std::string>> inputs = {
+        {"happyandglad", "happy"},
+        {"hello", "ll"},
+        {"aaaaa", "b"},
+        {"abc", "c"},
+        {"same", "same"},
+        {"short", "longerthan"},
+        {"mississippi", "issi"}
+    };
+    
+    std::vector<int> expectedOutputs = {
+        0,
+        2,
+        -1,
+        2,
+        0,
+        -1,
+        1
+    };
 
-    // Example 2, answer 2
-    std::string haystack2 = "hello", needle2 = "ll";
-    printf("Example 2: %d\n", find_index_of_first_occurence::strStr(haystack2, needle2));
+    runTests(inputs, expectedOutputs);
 
-    // Example 3, answer -1
-    std::string haystack3 = "aaaaa", needle3 = "b";
-    printf("Example 3: %d\n", find_index_of_first_occurence::strStr(haystack3, needle3));
-
-    // Example 4, answer 2
-    std::string haystack4 = "abc", needle4 = "c";
-    printf("Example 4: %d\n", find_index_of_first_occurence::strStr(haystack4, needle4));
-
-    // Example 5, answer 0
-    std::string haystack5 = "same", needle5 = "same";
-    printf("Example 5: %d\n", find_index_of_first_occurence::strStr(haystack5, needle5));
-
-    // Example 6, answer -1
-    std::string haystack6 = "short", needle6 = "longerthan";
-    printf("Example 6: %d\n", find_index_of_first_occurence::strStr(haystack6, needle6));
-
-    // Example 7, answer 1
-    std::string haystack7 = "mississippi", needle7 = "issi";
-    printf("Example 7: %d\n", find_index_of_first_occurence::strStr(haystack7, needle7));
-
+    return 0;
 }
