@@ -1,0 +1,100 @@
+Name: Subarray Sums Divisible by K
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    Given an integer array 'nums' and an integer 'k', retunr the number of non-empty subarrays that have a sum 
+    divisible by 'k'.
+
+    A subarray is a contiguous part of an array.
+
+Assumptions:
+    - nums.length >= 1
+    - nums[i] can be negative values.
+    - k >= 2
+
+Example:
+    Input: nums = [4,5,0,-2,-3,1], k = 5
+    Output: 7
+    Explanation: [4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3] are divisible by 5.
+
+    Input: nums = [5], k = 9
+    Output: 0
+    Explanation: 5 is not divisble by 9. 
+
+
+Solution Explanation:
+    Brute-force, O(N^3):
+        The naive solution is to loop through each possible subarray, sum their elements, and return and check if that
+        subarray is divisible by k.
+
+        Algorithm Pseudocode:
+            Solution {
+                count = 0
+                for (i = 0; i < nums.length; ++i) {
+                    for (j = i; j < nums.length - 1; ++j) {
+                        sum = 0
+                        for (k = i; k <= j; ++k) {
+                            sum += nums[k]
+                        }
+                        if (sum % k == 0) {
+                            count++
+                        }
+                    }
+                }
+            }
+
+        Explanation of Correctness:
+            This solution will loop through nums and find every possible subarray of nums. It will then sum the 
+            elements of subarray, and check if it is divisble by k, this can be done by modding the sum by K
+            and checking if it is equal to 0. If so, increment count.
+
+        Explanation of Runtime:
+            The runtime of this algorihtm is O(N^3) because it requires a loop for the starting index, a loop
+            to generate each subarray, and a loop to sum the elements.
+
+            The time complexity is O(1).
+    
+    Prefix-sum, O(N):
+        We can utilize prefix-sums to observe instances where two different index's prefix sums mod k are equal.
+        When this is the case, we have an instance where a subarray is divisible by k. We can then either store
+        each prefix sum mod k in an array and perform counting, or store them in a hashmap. I will implement this
+        using an array, but note that a hashmap would be better for larger problems.
+
+        Algorithm Pseudocode:
+            Solution {
+                array sums[k]
+                sum[0]++
+                count = 0
+                current_sum = 0
+
+                for (i = 0; i < nums.length; ++i) {
+                    current_sum = (current_sum + nums[i]%k + k) % K
+                    count += sums[current_sum]
+                    sums[current_sum]++
+                }
+
+                return count
+            }
+
+        Explanation of Correctness:
+            I provided an explanation to the understanding how to find subarray sums divisible by k in the 
+            "count_subarray_sum" problem, where I give a basic explanation for how prefix sums can find this problem.
+            The quick explanation revolves around the fact that given two indexes and their prefix sums, if they are
+            equal when modded by k, that implies that when subtracted, they will result in mod k = 0, which means
+            that it is divisble by k. Using this fact, we will count the number of repititons of mod k values found
+            during the calculation of prefix sums as these are subarrays that are divisible by k. We also
+            consider the case taht nums[i] itself is divisible by k, as it i will not increment the 
+            current_sum counter above, which means that we can also include that in our count.
+
+            Finally, note that in languages like C and Java, mod k can be negative, so we want to adjust for that
+            by adding k after the operation.
+
+        Explanation of Runtime:
+            The runtime for this alogrithm is O(n + k), as populating the prefix subarray sum is an O(k) operation.
+            If using a hashmap, this can be reduced to O(n) instead, but for smaller problems, the efficency of arrays
+            are better. This problem can be genearlized to O(N).
+
+            The space complexity is O(k) for the array of hashmap of prefix sums mod k. Note that this is k for each
+            possible mod of k that can be created from the sums of subarrays in 'nums'.
