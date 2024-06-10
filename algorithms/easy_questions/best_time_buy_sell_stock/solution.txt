@@ -21,7 +21,7 @@ Example:
 
 
 Solution Explanation:
-    Brute-Force, O(N^2):
+    Brute-Force, O(n^2):
         The Naive approach is to utilize a double nested loop, loop through each price and then check for the max price
         for all given prices ahead of the current.
 
@@ -47,11 +47,11 @@ Solution Explanation:
             This will run through every possibility, selecting the best outcome to return.
 
         Explanation of Runtime:
-            The runtime is O(N^2) as we loop through all the elements, then for each element, loop through the array again.
+            The runtime is O(n^2) as we loop through all the elements, then for each element, loop through the array again.
 
-            Space complexity is O(1)t as we only store one variable.
+            Space complexity is O(1) as we only store one variable.
     
-    Tabulation, O(N):
+    Tabulation, O(n):
         We clearly see that the brute-force approach is quite costly as we are recalculating results that we have seen 
         before. So, a new approach is to just store the largest prices that any given price sees in the array. Then, we
         can use this new array of largest prices to select the max profit for any given point in the arrray. We simply just
@@ -84,11 +84,11 @@ Solution Explanation:
             value.
 
         Explanation of Runtime:
-            Because we run through the array twice, our run time is O(N + N) which is abstracted to O(N).
+            Because we run through the array twice, our run time is O(n + n) which is abstracted to O(n).
 
             Our space complexity is O(N) because we require an auxiliary array to store the largest prices.
 
-    Greedy Approach, O(N):
+    Greedy Approach, O(n):
         This final approach, the goal is to minimize our space complexity. We note that the above problem, we
         are calculating the largest maximum sum for price[i] to another index j >= i. We can still calculate
         this result without the use of an auxiliary array by storing the max_profit, and using a Greedy
@@ -133,6 +133,6 @@ Solution Explanation:
             that we will always find the potential largest profit in the array.
 
         Explanation of Runtime:
-            We loop through prices once, visiting each element one time. Hence, our algorithm runs in O(N) time.
+            We loop through prices once, visiting each element one time. Hence, our algorithm runs in O(n) time.
 
             Our space complexity simplifies down to O(1) because we only utilize two int variables and no auxiliary array.

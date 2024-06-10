@@ -23,7 +23,7 @@ Example:
 
 
 Solution Explanation:
-    Dictionary, O(N):
+    Dictionary, O(n):
         To solve this problem, we need to calculate the frequency that characters appear for each word. We then take
         this frequency, and intersect them where they are equal. Each frequency of characters that are equal amongst
         the words are common characters that can be returned.
@@ -68,13 +68,13 @@ Solution Explanation:
             that we dont overcount the words. We add the character to our result and move onto the next character.
 
         Explanation of Runtime:
-            The runtime is O(N + N) as we first generate a map for each word and each letter per word, which is O(N),
+            The runtime is O(n + n) as we first generate a map for each word and each letter per word, which is O(n),
             then we loop through our map and determine if its a common character. More generally, the algorithm runs
             in O(N) time.
 
-            The time complexity is O(N), as we generate a map for each letter of all the words.
+            The time complexity is O(n), as we generate a map for each letter of all the words.
     
-    Erasing, O(N^2):
+    Erasing, O(n^2):
         Another method is to erase letters between words that don't share any characters. This method is similar to the
         previous method except that that goal is to minimize space usage.
 
@@ -114,7 +114,7 @@ Solution Explanation:
             multiple common letters of the same letter.
 
         Explanation of Runtime:
-            The runtime is O(N + N^2), or generally O(N^2), because we sort the words first, then we loop through the words
+            The runtime is O(n + n^2), or generally O(n^2), because we sort the words first, then we loop through the words
             and remove the duplicate characters. This isn't as efficent runtime wise but for smaller examples, this runs 
             more efficently.
 

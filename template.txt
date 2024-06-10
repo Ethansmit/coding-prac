@@ -20,7 +20,7 @@ Example:
 
 
 Solution Explanation:
-    Solution, O(N):
+    Solution, O(n):
         Explanation
 
         Algorithm Pseudocode:

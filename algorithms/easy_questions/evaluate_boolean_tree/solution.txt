@@ -28,7 +28,7 @@ Example:
 
 
 Solution Explanation:
-    Depth-First Search, O(N):
+    Depth-First Search, O(n):
         In order to evaluate our binary tree, we will utilize a depth-first-search approach, in which we will traverse from the root to the leaves, and climb back up, evaluating
         the nodes boolean opeartions according to their leaves. We can implement this function recurisvely by calling our solution function on the children if our given node
         is an OR or an AND node.
@@ -65,6 +65,6 @@ Solution Explanation:
         Proof of Runtime:
             We see that each node is visited once by the traverse function, then returns a value that is called back by a recurisve call to the function.
             Because evaluating a node for being true or false is constant time, this means that our total runtime will be "c" calls on N nodes,
-            Hence, our runtime is O(N).
+            Hence, our runtime is O(n).
 
-            Our space complexity is O(N) for each treenode made.
+            Our space complexity is O(n) for each treenode made.
