@@ -28,7 +28,7 @@ Example:
 
 
 Solution Explanation:
-    Reverse Single pointer Loop, O(N):
+    Reverse Single pointer Loop, O(n):
         Here, the main goal is to isolate the last word from the spaces, or retrieve the full word if the 
         last word is the only word in 's'. We can accomplish this by establishing a pointer at the end of the
         string and moving the pointer back until we hit a character that isn't a space. This will be the
@@ -68,7 +68,7 @@ Solution Explanation:
             the size of the final word. 
 
         Explanation of Runtime:
-            Because we visit each char in 's' once, the algorithm runs in O(N) time. 
+            Because we visit each char in 's' once, the algorithm runs in O(n) time. 
             
             The time complexity runs in O(1) time because we initialize two integer variables for any given size
             string.
