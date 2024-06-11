@@ -24,7 +24,7 @@ Example:
 
 
 Solution Explanation:
-    Loop comparison, O(N):
+    Loop comparison, O(n):
         A solution to this problem involves making an algorithm and either taking the first word and building the longest
         prefix possible until you reach the length of the shortest word in the strings. Another approach is the opposite,
         start with the shortest word and remove letters until you have a prefix that works for all the strings or until
@@ -60,7 +60,7 @@ Solution Explanation:
 
         Explanation of Runtime:
             We loop through each string in strs once to obtain the shortest word and again to adjust our prefix word so our total
-            runtime will be O(N + N) which is abstracted to O(N).
+            runtime will be O(n + n) which is abstracted to O(n).
 
             The space time complexity stores two strings, or one if implemented slightly differently, which means that one word will
             be chosen at all times. Hence the space compleixty is O(1).
