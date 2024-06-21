@@ -1,0 +1,115 @@
+Name: Jump Game II
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    You are given a 0-indexed array of integers 'nums' of length 'n'. You are initially positioned
+    at nums[0].
+
+    Each element 'nums[i]' represents the maximum length of a forward jump from index 'i'. In other
+    words, if you are at nums[i], you can jump to any nums[i + j] where:
+        - 0 <= j <= nums[i]
+        - i + j < n
+    
+    Return the minimum number of jumps to reach nums[n - 1]. The test cases are generated such that
+    you can reach nums[n - 1].
+
+Assumptions:
+    - nums.length >= 1.
+    - 0 <= nums[0] <= 1000.
+    - It is guranteed that you can reach nums[n - 1].
+
+Example:
+    Input: nums = [2, 3, 1, 1, 4]
+    Output: 2
+    Explanation: Jump 1 step from 0 to 1, then jump 3 steps to the last index. 
+
+    Input: [4, 0, 0, 0, 1]
+    Output: 1
+    Explanation: From index 0, jump 4 spaces to the last index.
+
+
+Solution Explanation:
+    Memoization, O(n^2):
+        We first note that the brute-force solution requires the use of looping through each index
+        and always finding the maximum jump size for each index. We can simplify this calculation
+        by storing what the maximum jump height with the least number of jumps at a given point is.
+        This process will store the results to avoid repetitive recalculation.
+
+        Algorithm Pseudocode:
+            Solution {
+                table = int[nums.length]
+                solve(nums, table, 0)
+
+                function solve(nums, table, pos) {
+                    // Check if we have reached end.
+                    if (pos >= nums.length - 1) {
+                        return 0
+                    }
+                    // Base case to end recursion.
+                    if (table[pos] != infinity) {
+                        return table[pos]
+                    }
+                    // Explore all jumps from current position, store the min jumps required.
+                    for (int i = 1; i <= nums[pos]; ++i) {
+                        table[pos] = mins(table[pos], 1 + solve(nums, table, pos + i))
+                    }
+                    return table[pos]
+                }
+            }
+
+        Explanation of Correctness:
+            This solution will look at all possible paths, and will observe the paths with the
+            least amount of jumps possible by rescursively analyzing their sizes. because
+            we look at all paths, we will store the path with the minimum amount of jumps
+            and return that as our result.
+
+        Explanation of Runtime:
+            This algorithm will run through and store the minimum number of jumps to reach
+            the end at every index. Hence, the runtime complexity will be O(n^2).
+
+            The space complexity will be O(n) as it requires a table to store the minimum
+            jumps needed to reach the end at each index.
+    
+    Greedy, O(n):
+        This solution skips the process of looking at all possible paths and instead focuses
+        on the path that is guranteed to reach the most amount of spaces in teh least amount
+        of jumps. The main idea is that we simple jump to the spaces that have the most
+        amount of reach from that index onwards, and take only those paths. This allows us
+        to find a path with the least amount of jumps and reaches the end as specified.
+
+        Algorithm Pseudocode:
+            Solution {
+                i = 0
+                max_reach = 0
+                last_pos = 0
+                jumps = 0
+
+                while (last_pos < nums.length - 1) {
+                    // Save the maximum reach.
+                    max_reach = max(max_reach, i + nums[i])
+                    // If the current index is the last_post, then we change last_pos to the 
+                    // max_reach, indicating our jump to the next index.
+                    if (i == last_pos) {
+                        last_pos = max_reach
+                        jumps++
+                    }
+                    i++
+                }
+
+                return jumps
+            }
+
+        Explanation of Correctness:
+            This method saves the largest reach jumps possible in accordance to the current 
+            positions jump length. We note that because we store this largest jump, we ensure
+            that we can traverse the entire length of nums, reaching all the possible largest
+            jumps + index that exist, which minimizes the jumps required. This also comes
+            with the benefit of ensuring that we don't waste jumps on index which can be
+            reached by another further index, avoiding jumps that could have been skipped.
+
+        Explanation of Runtime:
+            Because we loop through nums once, our runtime complexity is O(n).
+
+            Our space complexity is O(1).
