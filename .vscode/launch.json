@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TestBestTimeBuySellStock",
+      "request": "launch",
+      "mainClass": "algorithms.easy_questions.is_subsequence.TestBestTimeBuySellStock",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
+      "type": "java",
       "name": "TestContSubarraySum",
       "request": "launch",
       "mainClass": "algorithms.medium_questions.cont_subarray_sum.TestContSubarraySum",

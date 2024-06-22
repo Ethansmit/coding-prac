@@ -1,0 +1,62 @@
+Name: Is Subsequence
+Type: Algorithm
+Difficulty: Easy
+From: LeetCode
+
+Description:
+    Given two strings 's' and 't', return true if 's' is a subsequence of 't', or 'false'
+    otherwise.
+
+    A subsequence of a string is a new string that is formed from the original string by 
+    deleting some (can be none) of the characters without disturbing the relative
+    positions of the remaining characters. (i.e. "ace" is a subseuqence of "abcde" while
+    "aec" is not).
+
+Assumptions:
+    - s.length >= 0.
+    - t.length >= 0.
+    - 's' and 't' consist only of lowercase English characters.
+
+Example:
+    Input: s = "abc", t = "ahbgdc"
+    Output: true
+    Explanation: "hgd" can be removed from 't' to obtain 's'.
+
+    Input: s = "aec", t = "abcde"
+    Output: false
+    Explanation: no number of characters can be removed from 't' to obtain 's'.
+
+
+Solution Explanation:
+    Two pointers, O(n):
+        We can utilize a two-pointer algorithm to simulate the act of removing characters to obtain
+        's' from 't'.
+
+        Algorithm Pseudocode:
+            Solution {
+                i, j = 0
+                while (j < t.length && i < s.length) {
+                    // if the pointer's values are equal, then we can move to the next characters
+                    // of the pattern.
+                    if (t[j] == s[i]) {
+                        s++
+                        if (i == s.length) {
+                            return true
+                        }
+                    }
+                    j++
+                }
+                return false
+            }
+
+        Explanation of Correctness:
+            Because of how we move the pattern pointer, we will look through all of 't' in order of 
+            the characters we see 's'. If we see all of 's's characters while going through 't', 
+            then we can return true. If 's' is not looped through, then this means that the 
+            characters of the pattern don't exist within the text, meaning that there does not exist 
+            a subsequence of 's'.
+
+        Explanation of Runtime:
+            The runtime complexity is O(n), where n is the length of 't'.
+
+            The space complexity is O(1), because we only store two ints for the pointers.
