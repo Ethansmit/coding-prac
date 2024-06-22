@@ -5,7 +5,7 @@ class TreeNode(object):
         self.right = right
 
 class EvaluateBooleanTree(object):
-    def evaluateTree(self, root) -> bool:
+    def evaluate_tree(self, root) -> bool:
         return self.traverse(self, root)
     
     def traverse(self, root):
@@ -21,7 +21,7 @@ class EvaluateBooleanTree(object):
         
         return False
 
-def buildTreeFromList(lst):
+def build_tree_from_list(lst):
     if not lst:
         return None
     nodes = [TreeNode(val=x) if x is not None else None for x in lst]
@@ -37,8 +37,8 @@ def test_common_chars(test_cases):
     obj = EvaluateBooleanTree
     
     for i, (input_tree, boolean_output) in enumerate(test_cases):
-        tree = buildTreeFromList(input_tree)
-        output = obj.evaluateTree(obj, tree)
+        tree = build_tree_from_list(input_tree)
+        output = obj.evaluate_tree(obj, tree)
         assert output == boolean_output, f"Test case {i+1} failed: {output} != {boolean_output}"
     
     print("All test cases passed.")
