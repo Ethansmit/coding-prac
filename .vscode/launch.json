@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TestAppendCharsToMakeSubseq",
+      "request": "launch",
+      "mainClass": "algorithms.medium_questions.append_chars_to_make_subseq.TestAppendCharsToMakeSubseq",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
+      "type": "java",
       "name": "TestBestTimeBuySellStock",
       "request": "launch",
       "mainClass": "algorithms.medium_questions.h_index.TestBestTimeBuySellStock",

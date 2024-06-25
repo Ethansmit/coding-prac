@@ -28,7 +28,7 @@ Example:
 
 
 Solution Explanation:
-    Two-pointers, O(N):
+    Two-pointers, O(n):
         We note that by definition, in order for 't' to be a subsequence of 's', we need to delete 
         characters in 's' such that we can form 't'. So, a solution is to just see how many of the
         characters of 't' are in 's' in order of how they appear in 't'. We can scan 's', see how 
@@ -64,7 +64,7 @@ Solution Explanation:
 
         Explanation of Runtime:
             The use of a single loop through s and t that scans the size of t number of elements makes
-            the runtime of this algorithm O(m), where m is the size of t, or more generally O(N).
+            the runtime of this algorithm O(m), where m is the size of t, or more generally O(n).
 
             The space complexity is O(1) because we only need two integers to track the subsequence
             through the arrays.
