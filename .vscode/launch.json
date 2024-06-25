@@ -5,6 +5,13 @@
       "type": "java",
       "name": "TestBestTimeBuySellStock",
       "request": "launch",
+      "mainClass": "algorithms.medium_questions.h_index.TestBestTimeBuySellStock",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
+      "type": "java",
+      "name": "TestBestTimeBuySellStock",
+      "request": "launch",
       "mainClass": "algorithms.easy_questions.is_subsequence.TestBestTimeBuySellStock",
       "projectName": "coding-prac_5d56f404"
     },
