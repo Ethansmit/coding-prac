@@ -24,19 +24,35 @@ Example:
 
 
 Solution Explanation:
-    Maximum Sub Array, O(N):
+    Maximum Sub Array, O(n):
         The main goal is to achieve the maximum subarray for a a given buy price. This is done by first, always choosing the smallest value
         to buy, and then by always choosing the largest value to sell. If we follow this logic, we will obtain a series of subarrays that
         achieve a the largest possible values, which adds up to our profit return.
 
         Algorithm Pseudocode:
-            1. Initialize profit variable.
-            2. Loop through prices doing the following
-                - If prices[i] < prices[i + 1], then do the following
-                    - Create new index variable, sell_price = i + 1.
-                    - while prices[sell_price] < prices[sell_price + 1], add sell_price++
-                    - profit += prices[sell_price] - prices[i]
-                    - i = sell_price
+            Solution {
+                profit = 0
+
+                for (i = 0; i < prices.length - 1; i++) {
+                    // Check if next price is larger.
+                    if (prices[i] < prices[i + 1]) {
+                        // Find the optimal time to sell.
+                        sell_price = i + 1
+
+                        // Move through prices until the next price is less than. Set that price as our sell price
+                        // And add to profit.
+                        while (sell_price < prices.length - 1 && prices[sell_price] < prices[sell_price + 1]) {
+                            sell_price++
+                        }
+
+                        profit+= prices[sell_price] - prices[i]
+                        // Set index of our sell price to our buy price.
+                        i = sell_price
+                    }
+                }
+
+                return profit
+            }
 
         Proof of Correctness:
             There are two considerations for constructing a maximum subarray, choosing the lowest possible price to buy and the highest possible
@@ -54,4 +70,6 @@ Solution Explanation:
             This will create a series of subarrays which maximize our profits.
 
         Proof of Runtime:
-            We visit each price once to either buy, sell, or skip, hence our runtime is O(N).
+            We visit each price once to either buy, sell, or skip, hence our runtime is O(n).
+
+            Time complexity is O(1).

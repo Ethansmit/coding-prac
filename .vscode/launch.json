@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TestBestTimeBuySellStockII",
+      "request": "launch",
+      "mainClass": "algorithms.medium_questions.best_time_buy_sell_stock_II.TestBestTimeBuySellStockII",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
+      "type": "java",
+      "name": "BestTimeBuySellStockII",
+      "request": "launch",
+      "mainClass": "algorithms.medium_questions.best_time_buy_sell_stock_II.BestTimeBuySellStockII",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
+      "type": "java",
       "name": "TestAppendCharsToMakeSubseq",
       "request": "launch",
       "mainClass": "algorithms.medium_questions.append_chars_to_make_subseq.TestAppendCharsToMakeSubseq",
