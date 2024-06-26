@@ -33,14 +33,14 @@ public class ContSubarraySum {
 }
 
 class TestContSubarraySum {
-    public static void runTests(int[][] testCases, int[] k_vals,  boolean[] expectedResults) {
+    public static void runTests(int[][] testCases, int[] kVals,  boolean[] expectedResults) {
         ContSubarraySum solution = new ContSubarraySum();
 
         boolean correct = true;
 
         for (int i = 0; i < testCases.length; i++) {
             int[] testCase = testCases[i];
-            int k = k_vals[i];
+            int k = kVals[i];
             boolean expected = expectedResults[i];
             boolean result = solution.checkSubarraySum(testCase, k);
 
@@ -67,10 +67,10 @@ class TestContSubarraySum {
             {23,2,6,4,7}
         };
         
-        int[] k_vals = {6, 13, 3, 1, 1, 2, 6};
+        int[] kVals = {6, 13, 3, 1, 1, 2, 6};
 
         boolean[] expectedResults = {true, false, true, true, true, true, true};
 
-        runTests(testCases, k_vals, expectedResults);
+        runTests(testCases, kVals, expectedResults);
     }
 }
