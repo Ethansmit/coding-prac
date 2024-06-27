@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TestBestTimeBuySellStock",
+      "request": "launch",
+      "mainClass": "algorithms.medium_questions.gas_station.TestBestTimeBuySellStock",
+      "projectName": "coding-prac_5d56f404"
+    },
+    {
+      "type": "java",
       "name": "TestBestTimeBuySellStockII",
       "request": "launch",
       "mainClass": "algorithms.medium_questions.best_time_buy_sell_stock_II.TestBestTimeBuySellStockII",
