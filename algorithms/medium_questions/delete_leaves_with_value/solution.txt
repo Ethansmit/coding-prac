@@ -26,10 +26,22 @@ Solution Explanation:
         without needing extra loops to detect.
 
         Algorithm Pseudocode:
-            1. Check if root is null, if so return null.
-            2. Set the left node as the result of a recursive call on our removal function on the left node and target.
-            3. Set the right node as the result of a recursive call on our removal function on the right node and target.
-            4. Check if the current node has no children and the val is equal to the target. If so delete the node.
+            Solution {
+                if (!root)
+                    return null
+                
+                // Postorder traversal call.
+                root->left = solution(root->left)
+                root->right = solution(root->right)
+
+                // Check if the leaf node and val is the target. If so, delete.
+                if (!root->left && !root->right && root->val == target) {
+                    if (parent)
+                        delete root
+                    return null
+                }
+                return root
+            }
 
         Proof of Correctness:
             It is clear that only target nodes will be deleted, though it is important to note that the post-order traversal will ensure that the nodes
