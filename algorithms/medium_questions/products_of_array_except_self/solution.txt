@@ -1,0 +1,116 @@
+Name: Product of Array Except Self
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    Given an integer array 'nums', return an array 'answer' such that 'answer[i]' is equal to the
+    product of all the elements of 'nums' except 'nums[i]'.
+
+    The product of any prefix or suffix of 'nums' is guranteed to fit in a 32-bit integer.
+
+    You must write an algorithm that runs in O(n) time and without using the division operation.
+
+Assumptions:
+    - numslength >= 2.
+    - -30 <= nums[i] <= 30.
+    - Product of any prefix or suffix guranteed to fit in 32-bit integer.
+
+Example:
+    Input: nums = [1, 2, 3, 4]
+    Output: [24, 12, 8, 6]
+    Explanation: 
+        24 = 2 * 3 * 4
+        12 = 1 * 3 * 4
+        8 = 1 * 2 * 4
+        6 = 1 * 2 * 3
+
+    Input: nums = [-1, 1, 0, -3, 3]
+    Output: [0, 0, 9, 0, 0]
+    Explanation: 
+        0 = 1 * 0 * -3 * 3
+        0 = -1 * 0 * -3 * 3
+        9 = -1 * 1 * -3 * 3
+        0 = -1 * 1 * 0 * 3
+        0 = -1 * 1 * 0 * -3
+
+
+Solution Explanation:
+    Brute-Force, O(n^2):
+        The naive solution is to loop through for each index, multiplying all the elements that
+        aren't equal to that index until you have a solution.
+
+        Algorithm Pseudocode:
+            Solution {
+                n = nums.length
+                output = new array(n)
+                for (i = 0; i < n; i++) {
+                    product = 1
+                    for (j = 0; j < n; j++) {
+                        if (j != i) {
+                            product *= nums[j]
+                        }
+                    }
+                    nums[i] = product
+                }
+                return product
+            }
+
+        Explanation of Correctness:
+            This solution will result in the correct answer through naively calculating the
+            products without the index 'i' which is considered the current index.
+
+        Explanation of Runtime:
+            The runtime complexity is O(n^2) as this solution requires a double loop to solve the
+            problem.
+
+            The time complexity is O(1).
+    
+    Left-Right Product, O(n):
+        To solve this algorithm in O(n) time, we can use Dynamic programming, scanning through and
+        obtaining and prefix and suffix products. Using Tabulation, we could store the left and
+        right products, then multiple the left and right products to each other to obtain the 
+        correct result. We can optimize this approach by removing the storing of the products
+        and directly calculate the products themselves.
+
+        Algorithm Pseudocode:
+            Solution {
+                n = nums.length
+                output = array(n)
+                // Set the first ouput element as 1 as the base case of the prefix product.
+                output[0] = 1
+
+                // Calculate the left products for each index of the output.
+                for (i = 1; i < n; i++) {
+                    output[i] = output[i - 1] * nums[i - 1]
+                }
+
+                // Calculate the right products for each index of the output.
+                rightProd = 1
+                for (i = n - 1; i >= 0; i--) {
+                    output[i] *= rightProd
+                    rightProd *= nums[i]
+                }
+
+                return output
+            }
+
+        Explanation of Correctness:
+            For each index, 'i', in our put, we note that it will be an equation:
+                nums[0] * nums[1] * ... * nums[i-1] * nums[i+1] * ... * nums[n-1]
+            We then note that we can divide the product above into two sections, which
+            can be split into a left product and a right product.
+                leftProduct = nums[0] * nums[1] * ... * nums[i-1]
+                rightProduct = nums[i+1] * ... * nums[n-1]
+            Then:
+                output[i] = leftProduct * rightProduct
+            
+            Hence, for each 'output[i]', we can first calculate its leftProduct, then
+            loop again and calculate the rightProduct to obtain the output.
+
+        Explanation of Runtime:
+            The runtime complexity will be O(2n), as we perform two loops of nums. we
+            then note that the complexity will be O(2n) = O(n).
+
+            The space complexity is O(n), as we return the output array 'output', which is of
+            size n.

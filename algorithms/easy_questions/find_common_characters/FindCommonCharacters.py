@@ -27,14 +27,14 @@ def testCommonChars(test_cases):
 
 def main():
     test_cases = [
-        (["bella", "label", "roller"], ["e", "l", "l"]),  # Common characters
-        (["cool", "lock", "cook"], ["c", "o"]),           # Common characters with varying frequencies
-        (["abc", "def", "ghi"], []),                      # No common characters
-        (["aaa", "aaa", "aaa"], ["a", "a", "a"]),         # All identical words
-        (["abcdef", "abc", "ab"], ["a", "b"]),            # Subset words
-        (["", "a", "b"], []),                             # Edge case with empty string
-        (["abcd"], ["a", "b", "c", "d"]),                 # Single word
-        ([], []),                                         # No words
+        (["bella", "label", "roller"], ["e", "l", "l"]),
+        (["cool", "lock", "cook"], ["c", "o"]),
+        (["abc", "def", "ghi"], []),
+        (["aaa", "aaa", "aaa"], ["a", "a", "a"]),
+        (["abcdef", "abc", "ab"], ["a", "b"]),
+        (["", "a", "b"], []),
+        (["abcd"], ["a", "b", "c", "d"]),
+        ([], []),
     ]
     
     testCommonChars(test_cases)
