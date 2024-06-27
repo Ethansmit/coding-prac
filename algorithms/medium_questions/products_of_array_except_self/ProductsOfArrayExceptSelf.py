@@ -1,7 +1,7 @@
 from collections import Counter
 
 class ProductsOfArrayExceptSelf(object):
-    def productExceptSelf(self, nums):
+    def product_except_self(self, nums):
         n = len(nums)
         output = [1] * n
         
@@ -15,9 +15,9 @@ class ProductsOfArrayExceptSelf(object):
         
         return output
     
-def testCommonChars(test_cases):
+def test_common_chars(test_cases):
     for i, (input_words, expected_output) in enumerate(test_cases):
-        output = ProductsOfArrayExceptSelf.productExceptSelf(ProductsOfArrayExceptSelf, input_words)
+        output = ProductsOfArrayExceptSelf.product_except_self(ProductsOfArrayExceptSelf, input_words)
         assert sorted(output) == sorted(expected_output), f"Test case {i+1} failed: {output} != {expected_output}"
     
     print("All test cases passed.")
@@ -35,7 +35,7 @@ def main():
         
     ]
     
-    testCommonChars(test_cases)
+    test_common_chars(test_cases)
 
 if __name__=="__main__":
     main()
