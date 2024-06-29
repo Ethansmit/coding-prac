@@ -2,9 +2,9 @@
 #include <string>
 #include <vector>
 
-class FindIndexOfFirstOccurence {
+class IntegerToRoman {
     public:
-        static int strStr(std::string haystack, std::string needle) {
+        static int intToRoman(std::string haystack, std::string needle) {
             int h_len = haystack.size();
             int n_len  = needle.size();
 
@@ -51,11 +51,11 @@ class FindIndexOfFirstOccurence {
 };
 
 void runTests(const std::vector<std::pair<std::string, std::string>>& inputs, const std::vector<int>& expectedOutputs) {
-    FindIndexOfFirstOccurence obj;
+    IntegerToRoman obj;
 
     int correct = 1;
     for (size_t i = 0; i < inputs.size(); ++i) {
-        int result = obj.strStr(inputs[i].first, inputs[i].second);
+        int result = obj.intToRoman(inputs[i].first, inputs[i].second);
         if (result != expectedOutputs[i]) {
             std::cout << "Test case " << i + 1 << " failed!" << std::endl;
             std::cout << "Expected: " << expectedOutputs[i] << std::endl;
