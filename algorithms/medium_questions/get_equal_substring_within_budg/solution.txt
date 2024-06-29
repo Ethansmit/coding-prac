@@ -34,16 +34,24 @@ Solution Explanation:
         and check if the new substring size in teh window is greater than all previous substrings seen.
 
         Algorithm Pseudocode:
-            1. Initialize variables
-                - ptr1, the left side of the window.
-                - cost, to track total transformation cost.
-                - sub_len, to track the largest substring found.
-            2. Create for loop, using ptr2, our right side of the window, as our itterated variable, then do the following:
-                - For each character at ptr2, compute the ASCII transformation cost and add it to our cost variable.
-            3. If the cost > maxCost, then do the following:
-                - Subtract the cost of the ptr1's character ASCII transformation cost from our cost variable.
-                - Add one to ptr1.
-            4. recaculate sub_len as the max between the current sub_len and the size of the window (ptr2 - ptr1 + 1)
+            Solution {
+                sub_len = 0
+                ptr1 = 0
+                cost = 0
+
+                for (ptr2 = 0; ptr2 < s.length; s++) {
+                    cost += abs(char_to_int(s[ptr2]) - char_to_int(t[ptr2]))
+
+                    while (cost > max_cost) {
+                        cost -= abs(char_to_int(s[ptr1]) - char_to_int(t[ptr1]))
+                        ptr1 += 1
+                    }
+
+                    sub_len = max(sub_len, ptr2 - ptr1 + 1)
+                }
+
+                return sub_len
+            }
 
         Proof of Correctness:
             We note that we can divide "s" into a number of substrings by the maxCost variable. Doing this, we can generate a 
