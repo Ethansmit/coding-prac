@@ -34,7 +34,7 @@ class Solution:
             l2 = l2.next if l2 else None
         return returnList.next
 
-# --- Helper functions ---
+# Helper Functions
 def list_to_linkedlist(nums):
     """Convert a list into a linked list."""
     dummy = ListNode(0)
@@ -53,7 +53,7 @@ def linkedlist_to_list(node):
     return result
 
 
-# --- Test Cases ---
+# Test Cases
 tests = [
     {"l1": [2,4,3], "l2": [5,6,4], "expected": [7,0,8]},
     {"l1": [0], "l2": [0], "expected": [0]},
@@ -68,7 +68,7 @@ tests = [
 ]
 
 
-# --- Run Tests ---
+# Run Tests
 solver = Solution()
 for i, t in enumerate(tests, 1):
     l1 = list_to_linkedlist(t["l1"])
