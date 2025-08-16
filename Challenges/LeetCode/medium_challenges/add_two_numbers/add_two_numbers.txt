@@ -1,0 +1,62 @@
+Name: Add Two Numbers
+Type: Algorithm
+Difficulty: Medium
+From: LeetCode
+
+Description:
+    You are given two non-empty linked lists representing two non-negative numbers. The digits are
+    stored in reverse order, and each of their nodes contains a single digit. Add the two numbers
+    and return the sum as a linked list.
+
+    You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Assumptions:
+    - The number of nodes will atleast be 1.
+    - 0 <= Node.val <= 9
+    - There will not be numbers with leading zeros.
+
+Example:
+    Input: l1 = [2, 4, 3], l2 = [5, 6, 4]
+    Output: [7, 0, 8]
+    Explanation: 342 + 465 = 807
+
+    Input: l1 = [0], l2 = [0]
+    Output: [0]
+    Explanation: 0 + 0 = 0
+
+    Input: l1 = [9, 9, 9, 9, 9, 9, 9], l2 = [9, 9, 9, 9]
+    Output: [8, 9, 9, 9, 0, 0, 0, 1] 
+
+
+Solution Explanation:
+    Solution, O(n):
+        We can approach this problem similar to summing two numbers on paper. This way, we can go
+        through the lists once, sum the values, and go from there.
+
+        Algorithm Pseudocode:
+            Solution {
+                Initialize return list.
+
+                Initialize a carry value to 0.
+
+                Loop through l1 and l2 until both ends and the carry value is 0.
+                    Perform this function return = x + y + carry
+                        where x is l1's value, y is l2's value, and the carry value from the previous value.
+                    Update carry = sum/10
+                    Set the return node value as (return mod 10) and then move to the next node value.
+                    iterate l1 and l2.
+
+                Return dummy head's next node.
+            }
+
+        Explanation of Correctness:
+            Due to the list's structure, we are essentially performing traditional addition from
+            the lowest numerical value, then carrying over. The carry over will ensure that the
+            values of the next addition will contain the carry. If l1 or l2 ends, then conditions
+            at the end will populate the reamining values with l1 and l2's values.
+
+        Explanation of Runtime:
+            As we run through l1 and l2 a single time, this means that the runtime will be O(n),
+            which is the length of the input arrays.
+
+            Space complexity is O(1).
