@@ -1,7 +1,27 @@
 class Solution:
+    """
+    By: Ethan Smith
+    Date: 2/11/2026
+
+    Description:
+    Here are two solutions to the two sum problem. The Bruteforce is two for loops which compares
+    all possible solutions. The Complements method creates a hash table which then stores the
+    complementary value of each value in the input list, and if a given value in the input 
+    list has a complement which is in the dictionary, then the two solution problem has been
+    solved. Complements method solves the issue in O(n) time.
+    """
     def bruteForce(nums: list[int], target: int) -> list[int]:
+        """
+        Brute force approach of two sum.
+
+        input:
+        @list[int] nums: input list.
+        @int target: given summed value.
+        """
+
         # length of nums
         length = len(nums)
+
         # Loops for finding target
         for i in range(length - 1):
             for j in range(i + 1, length):
@@ -10,6 +30,14 @@ class Solution:
         return []
     
     def complements(nums: list[int], target: int) -> list[int]:
+        """
+        Brute force approach of two sum.
+
+        input:
+        @list[int] nums: input list.
+        @int target: given summed value.
+        """
+
         # hash table
         numDict = {}
         # length of nums
